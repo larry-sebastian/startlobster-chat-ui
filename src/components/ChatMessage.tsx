@@ -1,4 +1,5 @@
 
+import { useState, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
@@ -7,7 +8,7 @@ import { ThinkingBlock } from './ThinkingBlock';
 import { CodeBlock } from './CodeBlock';
 import { ToolCall } from './ToolCall';
 import { ImageBlock, buildImageSrc } from './ImageBlock';
-import { Bot, User, Wrench } from 'lucide-react';
+import { Bot, User, Wrench, Copy, Check } from 'lucide-react';
 import { t, getLocale } from '../lib/i18n';
 import { useLocale } from '../hooks/useLocale';
 // ChevronDown, ChevronRight, Wrench still used by InternalOnlyMessage
@@ -212,6 +213,35 @@ function InternalOnlyMessage({ message }: { message: ChatMessageType }) {
   );
 }
 
+function CopyButton({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = useCallback(() => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }, [text]);
+
+  return (
+    <button
+      onClick={handleCopy}
+      className="absolute top-2 right-2 h-7 w-7 rounded-lg border border-white/8 bg-zinc-800/80 backdrop-blur-sm flex items-center justify-center text-zinc-400 hover:text-cyan-300 hover:border-cyan-400/30 transition-all opacity-0 group-hover:opacity-100"
+      title={copied ? t('message.copied') : t('message.copy')}
+      aria-label={t('message.copy')}
+    >
+      {copied ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
+    </button>
+  );
+}
+
+/** Extract plain text from message blocks for clipboard copy */
+function getPlainText(message: ChatMessageType): string {
+  if (message.blocks.length > 0) {
+    return getTextBlocks(message.blocks).map(b => (b as any).text).join('\n\n');
+  }
+  return message.content;
+}
+
 export function ChatMessageComponent({ message }: { message: ChatMessageType }) {
   useLocale(); // re-render on locale change
   const isUser = message.role === 'user';
@@ -238,11 +268,15 @@ export function ChatMessageComponent({ message }: { message: ChatMessageType }) 
 
       {/* Bubble */}
       <div className={`min-w-0 max-w-[80%] ${isUser ? 'text-right' : ''}`}>
-        <div className={`inline-block text-left rounded-3xl px-4 py-3 text-sm leading-relaxed border border-white/8 max-w-full overflow-hidden ${
+        <div className={`group relative inline-block text-left rounded-3xl px-4 py-3 text-sm leading-relaxed border border-white/8 max-w-full overflow-hidden ${
           isUser
             ? 'bg-gradient-to-b from-zinc-800/70 to-zinc-900/70 text-zinc-200'
             : 'bg-zinc-800/40 text-zinc-300 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]'
         }`}>
+          {/* Copy button (assistant messages only) */}
+          {!isUser && !message.isStreaming && getPlainText(message).trim() && (
+            <CopyButton text={getPlainText(message)} />
+          )}
           {/* User-visible text */}
           {message.blocks.length > 0 ? renderTextBlocks(message.blocks) : (
             <div className="markdown-body">

@@ -54,6 +54,10 @@ const en = {
   'connection.reconnecting': 'Connection lost — reconnecting…',
   'connection.reconnected': 'Reconnected!',
 
+  // Message actions
+  'message.copy': 'Copy message',
+  'message.copied': 'Copied!',
+
   // Timestamps
   'time.yesterday': 'Yesterday',
 } as const;
@@ -97,6 +101,9 @@ const fr: Record<keyof typeof en, string> = {
 
   'connection.reconnecting': 'Connexion perdue — reconnexion…',
   'connection.reconnected': 'Reconnecté !',
+
+  'message.copy': 'Copier le message',
+  'message.copied': 'Copié !',
 
   'time.yesterday': 'Hier',
 };
