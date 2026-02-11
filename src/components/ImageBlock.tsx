@@ -18,11 +18,15 @@ function Lightbox({ src, alt, onClose }: ImageBlockProps & { onClose: () => void
 
   return (
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={alt || 'Image preview'}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm animate-fade-in"
       onClick={onClose}
     >
       <button
         onClick={onClose}
+        aria-label="Close preview"
         className="absolute top-4 right-4 p-2 rounded-full bg-zinc-800/80 border border-white/10 text-zinc-300 hover:text-white hover:bg-zinc-700/80 transition-colors"
       >
         <X size={20} />
@@ -43,13 +47,19 @@ export function ImageBlock({ src, alt }: ImageBlockProps) {
   return (
     <>
       <div className="my-2">
-        <img
-          src={src}
-          alt={alt || 'Image'}
-          className="max-w-full max-h-80 rounded-xl border border-white/8 cursor-pointer hover:brightness-110 transition-all"
+        <button
+          type="button"
           onClick={() => setLightbox(true)}
-          loading="lazy"
-        />
+          aria-label={`View ${alt || 'image'} full size`}
+          className="block rounded-xl border border-white/8 cursor-pointer hover:brightness-110 transition-all focus:outline-none focus:ring-2 focus:ring-cyan-400/40"
+        >
+          <img
+            src={src}
+            alt={alt || 'Image'}
+            className="max-w-full max-h-80 rounded-xl"
+            loading="lazy"
+          />
+        </button>
       </div>
       {lightbox && <Lightbox src={src} alt={alt} onClose={() => setLightbox(false)} />}
     </>

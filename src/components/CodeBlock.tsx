@@ -26,6 +26,7 @@ export function CodeBlock(props: HTMLAttributes<HTMLPreElement>) {
         onClick={handleCopy}
         className="absolute top-2 right-2 p-1.5 rounded-lg bg-zinc-700/60 hover:bg-zinc-600/80 border border-white/10 text-zinc-400 hover:text-zinc-200 opacity-0 group-hover/code:opacity-100 transition-opacity duration-150"
         title="Copy code"
+        aria-label="Copy code to clipboard"
         type="button"
       >
         {copied
