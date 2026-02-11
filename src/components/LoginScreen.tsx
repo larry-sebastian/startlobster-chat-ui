@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Bot, Sparkles, Eye, EyeOff, Loader2 } from 'lucide-react';
+import { t } from '../lib/i18n';
 
 interface Props {
   onConnect: (url: string, token: string) => void;
@@ -56,17 +57,17 @@ export function LoginScreen({ onConnect, error, isConnecting }: Props) {
             <Bot className="h-7 w-7 text-cyan-200" />
           </div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold text-zinc-200 tracking-wide">PinchChat</h1>
+            <h1 className="text-2xl font-bold text-zinc-200 tracking-wide">{t('login.title')}</h1>
             <Sparkles className="h-5 w-5 text-cyan-300/60" />
           </div>
-          <p className="text-sm text-zinc-500">Connect to your OpenClaw gateway</p>
+          <p className="text-sm text-zinc-500">{t('login.subtitle')}</p>
         </div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="rounded-2xl border border-white/8 bg-[#232329]/80 backdrop-blur-xl p-6 space-y-5 shadow-2xl shadow-black/30">
           <div className="space-y-2">
             <label htmlFor="gateway-url" className="block text-xs font-medium text-zinc-400 uppercase tracking-wider">
-              Gateway URL
+              {t('login.gatewayUrl')}
             </label>
             <input
               id="gateway-url"
@@ -82,7 +83,7 @@ export function LoginScreen({ onConnect, error, isConnecting }: Props) {
 
           <div className="space-y-2">
             <label htmlFor="gateway-token" className="block text-xs font-medium text-zinc-400 uppercase tracking-wider">
-              Token
+              {t('login.token')}
             </label>
             <div className="relative">
               <input
@@ -90,7 +91,7 @@ export function LoginScreen({ onConnect, error, isConnecting }: Props) {
                 type={showToken ? 'text' : 'password'}
                 value={token}
                 onChange={e => setToken(e.target.value)}
-                placeholder="Enter your gateway token"
+                placeholder={t('login.tokenPlaceholder')}
                 className="w-full rounded-xl border border-white/8 bg-zinc-800/50 px-4 py-3 pr-12 text-sm text-zinc-200 placeholder:text-zinc-600 outline-none focus:border-cyan-400/40 focus:ring-1 focus:ring-cyan-400/20 transition-all"
                 autoComplete="current-password"
                 disabled={isConnecting}
@@ -100,7 +101,7 @@ export function LoginScreen({ onConnect, error, isConnecting }: Props) {
                 onClick={() => setShowToken(!showToken)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 transition-colors"
                 tabIndex={-1}
-                aria-label={showToken ? 'Hide token' : 'Show token'}
+                aria-label={showToken ? t('login.hideToken') : t('login.showToken')}
               >
                 {showToken ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
@@ -121,16 +122,16 @@ export function LoginScreen({ onConnect, error, isConnecting }: Props) {
             {isConnecting ? (
               <>
                 <Loader2 size={16} className="animate-spin" />
-                Connecting…
+                {t('login.connecting')}
               </>
             ) : (
-              'Connect'
+              t('login.connect')
             )}
           </button>
         </form>
 
         <p className="text-center text-xs text-zinc-600 mt-6">
-          Credentials are stored locally in your browser
+          {t('login.storedLocally')}
         </p>
       </div>
     </div>

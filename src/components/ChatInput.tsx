@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Send, Square, Paperclip, X, FileText } from 'lucide-react';
+import { t } from '../lib/i18n';
 
 interface FileAttachment {
   id: string;
@@ -180,7 +181,7 @@ export function ChatInput({ onSend, onAbort, isGenerating, disabled }: Props) {
     <div
       className="border-t border-white/8 bg-[#1a1a20]/60 backdrop-blur-xl p-4"
       role="form"
-      aria-label="Message input"
+      aria-label={t('chat.inputLabel')}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
@@ -218,8 +219,8 @@ export function ChatInput({ onSend, onAbort, isGenerating, disabled }: Props) {
               onClick={() => fileInputRef.current?.click()}
               disabled={disabled}
               className="shrink-0 h-11 w-11 rounded-2xl border border-white/8 bg-zinc-800/30 flex items-center justify-center text-zinc-400 hover:text-cyan-300 hover:bg-white/5 transition-colors disabled:opacity-30"
-              title="Attach file"
-              aria-label="Attach file"
+              title={t('chat.attachFile')}
+              aria-label={t('chat.attachFile')}
             >
               <Paperclip size={18} />
             </button>
@@ -238,8 +239,8 @@ export function ChatInput({ onSend, onAbort, isGenerating, disabled }: Props) {
               onChange={(e) => setText(e.target.value)}
               onKeyDown={handleKeyDown}
               onPaste={handlePaste}
-              placeholder="Type a message…"
-              aria-label="Message"
+              placeholder={t('chat.inputPlaceholder')}
+              aria-label={t('chat.inputLabel')}
               disabled={disabled}
               rows={1}
               className="flex-1 bg-transparent resize-none rounded-2xl border border-white/8 bg-zinc-900/35 px-4 py-3 text-sm text-zinc-300 placeholder:text-zinc-500 outline-none focus:ring-2 focus:ring-cyan-400/30 transition-all max-h-[200px]"
@@ -250,17 +251,17 @@ export function ChatInput({ onSend, onAbort, isGenerating, disabled }: Props) {
                 className="shrink-0 h-11 px-4 rounded-2xl border border-red-500/20 bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors flex items-center gap-2"
               >
                 <Square size={16} />
-                <span className="text-sm hidden sm:inline">Stop</span>
+                <span className="text-sm hidden sm:inline">{t('chat.stop')}</span>
               </button>
             ) : (
               <button
                 onClick={handleSubmit}
                 disabled={(!text.trim() && files.length === 0) || disabled}
-                aria-label="Send message"
+                aria-label={t('chat.send')}
                 className="shrink-0 h-11 px-5 rounded-2xl bg-gradient-to-r from-cyan-500/80 via-indigo-500/70 to-violet-500/80 text-zinc-900 font-semibold text-sm hover:opacity-90 shadow-[0_8px_24px_rgba(34,211,238,0.1)] disabled:opacity-30 disabled:shadow-none transition-all flex items-center gap-2"
               >
                 <Send size={16} />
-                <span className="hidden sm:inline">Send</span>
+                <span className="hidden sm:inline">{t('chat.send')}</span>
               </button>
             )}
           </div>

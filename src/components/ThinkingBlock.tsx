@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ChevronRight, ChevronDown, Brain } from 'lucide-react';
+import { t } from '../lib/i18n';
 
 export function ThinkingBlock({ text }: { text: string }) {
   const [open, setOpen] = useState(false);
@@ -11,7 +12,7 @@ export function ThinkingBlock({ text }: { text: string }) {
         className="inline-flex items-center gap-1.5 rounded-2xl border border-white/8 bg-zinc-800/35 px-3 py-1.5 text-xs text-violet-300 hover:bg-white/5 transition-colors"
       >
         <Brain size={13} />
-        <span className="font-medium">Thinking</span>
+        <span className="font-medium">{t('thinking.label')}</span>
         {open ? <ChevronDown size={12} className="ml-1 text-zinc-500" /> : <ChevronRight size={12} className="ml-1 text-zinc-500" />}
       </button>
       {open && (

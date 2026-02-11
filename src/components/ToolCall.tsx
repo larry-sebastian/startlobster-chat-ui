@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { ChevronRight, ChevronDown, Terminal, Globe, Search, FileText, Wrench, Code, Database, Image, MessageSquare, Brain, Cpu } from 'lucide-react';
 import hljs from 'highlight.js/lib/common';
+import { t } from '../lib/i18n';
 
 type ToolColor = { border: string; bg: string; text: string; icon: string; glow: string; expandBorder: string; expandBg: string };
 
@@ -188,7 +189,7 @@ export function ToolCall({ name, input, result }: { name: string; input?: any; r
           )}
           {result && (
             <div>
-              <div className={`text-[11px] ${c.text} opacity-70 mb-1 font-medium`}>Result</div>
+              <div className={`text-[11px] ${c.text} opacity-70 mb-1 font-medium`}>{t('tool.result')}</div>
               <HighlightedPre
                 text={result}
                 className="text-xs bg-[#1a1a20]/60 border border-white/5 p-2.5 rounded-xl overflow-x-auto text-zinc-300 max-h-64 overflow-y-auto font-mono"

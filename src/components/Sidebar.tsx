@@ -1,5 +1,6 @@
 import { MessageSquare, X, Sparkles } from 'lucide-react';
 import type { Session } from '../types';
+import { t } from '../lib/i18n';
 
 interface Props {
   sessions: Session[];
@@ -22,7 +23,7 @@ export function Sidebar({ sessions, activeSession, onSwitch, open, onClose }: Pr
                 <Sparkles className="h-4 w-4 text-cyan-200" />
               </div>
             </div>
-            <span className="font-semibold text-sm text-zinc-200 tracking-wide">Sessions</span>
+            <span className="font-semibold text-sm text-zinc-200 tracking-wide">{t('sidebar.title')}</span>
           </div>
           <button onClick={onClose} className="lg:hidden p-1.5 rounded-xl hover:bg-white/5 text-zinc-400 transition-colors">
             <X size={16} />
@@ -30,7 +31,7 @@ export function Sidebar({ sessions, activeSession, onSwitch, open, onClose }: Pr
         </div>
         <div className="flex-1 overflow-y-auto py-2 px-2">
           {sessions.length === 0 && (
-            <div className="px-3 py-8 text-center text-zinc-500 text-sm">No sessions</div>
+            <div className="px-3 py-8 text-center text-zinc-500 text-sm">{t('sidebar.empty')}</div>
           )}
           {sessions.map(s => {
             const isActive = s.key === activeSession;

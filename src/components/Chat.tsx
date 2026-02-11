@@ -4,6 +4,7 @@ import { ChatInput } from './ChatInput';
 import { TypingIndicator } from './TypingIndicator';
 import type { ChatMessage, ConnectionStatus } from '../types';
 import { Bot } from 'lucide-react';
+import { t } from '../lib/i18n';
 
 interface Props {
   messages: ChatMessage[];
@@ -54,7 +55,7 @@ export function Chat({ messages, isGenerating, status, onSend, onAbort }: Props)
 
   return (
     <div className="flex-1 flex flex-col min-h-0">
-      <div className="flex-1 overflow-y-auto" role="log" aria-label="Chat messages" aria-live="polite">
+      <div className="flex-1 overflow-y-auto" role="log" aria-label={t('chat.messages')} aria-live="polite">
         <div className="max-w-4xl mx-auto py-4">
           {messages.length === 0 && (
             <div className="flex flex-col items-center justify-center h-[60vh] text-zinc-500">
@@ -64,8 +65,8 @@ export function Chat({ messages, isGenerating, status, onSend, onAbort }: Props)
                   <Bot className="h-8 w-8 text-cyan-200" />
                 </div>
               </div>
-              <div className="text-lg text-zinc-200 font-semibold">PinchChat</div>
-              <div className="text-sm mt-1 text-zinc-500">Send a message to get started</div>
+              <div className="text-lg text-zinc-200 font-semibold">{t('chat.welcome')}</div>
+              <div className="text-sm mt-1 text-zinc-500">{t('chat.welcomeSub')}</div>
             </div>
           )}
           {messages.filter(hasVisibleContent).map(msg => (
