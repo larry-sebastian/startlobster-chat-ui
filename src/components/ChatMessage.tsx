@@ -4,6 +4,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import type { ChatMessage as ChatMessageType, MessageBlock } from '../types';
 import { ThinkingBlock } from './ThinkingBlock';
+import { CodeBlock } from './CodeBlock';
 import { ToolCall } from './ToolCall';
 import { Bot, User, Wrench } from 'lucide-react';
 import { t, locale } from '../lib/i18n';
@@ -127,10 +128,12 @@ function getInternalBlocks(blocks: MessageBlock[]): MessageBlock[] {
   return blocks.filter(b => b.type === 'thinking' || b.type === 'tool_use' || b.type === 'tool_result');
 }
 
+const markdownComponents = { pre: CodeBlock };
+
 function renderTextBlocks(blocks: MessageBlock[]) {
   return getTextBlocks(blocks).map((block, i) => (
     <div key={`text-${i}`} className="markdown-body">
-      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
+      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]} components={markdownComponents}>
         {autoFormatText((block as any).text)}
       </ReactMarkdown>
     </div>
@@ -220,7 +223,7 @@ export function ChatMessageComponent({ message }: { message: ChatMessageType }) 
           {/* User-visible text */}
           {message.blocks.length > 0 ? renderTextBlocks(message.blocks) : (
             <div className="markdown-body">
-              <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
+              <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]} components={markdownComponents}>
                 {autoFormatText(message.content)}
               </ReactMarkdown>
             </div>
