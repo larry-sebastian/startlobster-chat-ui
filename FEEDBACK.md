@@ -23,7 +23,8 @@
 ## Item #4
 - **Date:** 2026-02-11
 - **Priority:** high
-- **Status:** in-progress
+- **Status:** done
+- **Completed:** 2026-02-11 — commit `36f9480`
 - **Description:** Supprimer le token du build — implémenter un écran de login au runtime
   - Au premier lancement (ou si pas de credentials en localStorage), afficher un écran de connexion avec :
     - Champ "Gateway URL" (ex: `ws://192.168.1.14:18789`)
