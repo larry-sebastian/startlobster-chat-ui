@@ -47,6 +47,7 @@ const en = {
   'thinking.label': 'Thinking',
 
   // Tool call
+  'tool.parameters': 'Parameters',
   'tool.result': 'Result',
 
   // Connection banner
@@ -91,6 +92,7 @@ const fr: Record<keyof typeof en, string> = {
 
   'thinking.label': 'Réflexion',
 
+  'tool.parameters': 'Paramètres',
   'tool.result': 'Résultat',
 
   'connection.reconnecting': 'Connexion perdue — reconnexion…',

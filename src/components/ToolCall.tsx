@@ -207,7 +207,7 @@ export function ToolCall({ name, input, result }: { name: string; input?: any; r
         <div className={`mt-2 rounded-2xl border ${c.expandBorder} ${c.expandBg} p-3 space-y-2`}>
           {inputStr && (
             <div>
-              <div className={`text-[11px] ${c.text} opacity-70 mb-1 font-medium`}>Paramètres</div>
+              <div className={`text-[11px] ${c.text} opacity-70 mb-1 font-medium`}>{t('tool.parameters')}</div>
               <HighlightedPre
                 text={inputStr}
                 className="text-xs bg-[#1a1a20]/60 border border-white/5 p-2.5 rounded-xl overflow-x-auto text-zinc-300 font-mono"
