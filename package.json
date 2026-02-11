@@ -1,11 +1,11 @@
 {
-  "name": "clawchat",
+  "name": "pinchchat",
   "version": "1.0.0",
   "description": "A sleek, dark-themed webchat UI for OpenClaw — monitor sessions, stream responses, and inspect tool calls in real-time.",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MarlBurroW/clawchat.git"
+    "url": "https://github.com/MarlBurroW/pinchchat.git"
   },
   "license": "MIT",
   "author": "Nicolas Varrot",

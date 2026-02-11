@@ -1,4 +1,4 @@
-# Contributing to ClawChat
+# Contributing to PinchChat
 
 Thanks for your interest in contributing! 🦞
 
@@ -7,8 +7,8 @@ Thanks for your interest in contributing! 🦞
 1. **Fork** the repository
 2. **Clone** your fork:
    ```bash
-   git clone https://github.com/<your-username>/clawchat.git
-   cd clawchat
+   git clone https://github.com/<your-username>/pinchchat.git
+   cd pinchchat
    ```
 3. **Install dependencies:**
    ```bash

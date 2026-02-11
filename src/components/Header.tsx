@@ -23,7 +23,7 @@ export function Header({ status, sessionKey, onToggleSidebar, activeSessionData 
         </div>
         <div className="min-w-0">
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-zinc-300 text-sm tracking-wide">ClawChat</span>
+            <span className="font-semibold text-zinc-300 text-sm tracking-wide">PinchChat</span>
             <Sparkles className="h-3.5 w-3.5 text-cyan-300/60" />
           </div>
           <span className="text-xs text-zinc-500 truncate block">{sessionLabel}</span>

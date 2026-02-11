@@ -53,7 +53,7 @@ export function Chat({ messages, isGenerating, status, onSend, onAbort }: Props)
                   <Bot className="h-8 w-8 text-cyan-200" />
                 </div>
               </div>
-              <div className="text-lg text-zinc-200 font-semibold">ClawChat</div>
+              <div className="text-lg text-zinc-200 font-semibold">PinchChat</div>
               <div className="text-sm mt-1 text-zinc-500">Envoie un message pour commencer</div>
             </div>
           )}

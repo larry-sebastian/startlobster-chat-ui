@@ -1,12 +1,12 @@
-# 🦞 ClawChat
+# 🦞 PinchChat
 
-[![CI](https://github.com/MarlBurroW/clawchat/actions/workflows/ci.yml/badge.svg)](https://github.com/MarlBurroW/clawchat/actions/workflows/ci.yml)
+[![CI](https://github.com/MarlBurroW/pinchchat/actions/workflows/ci.yml/badge.svg)](https://github.com/MarlBurroW/pinchchat/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org/)
 
 **A sleek, dark-themed webchat UI for [OpenClaw](https://github.com/openclaw/openclaw) — monitor sessions, stream responses, and inspect tool calls in real-time.**
 
-> 🖼️ *Screenshot coming soon — [contributions welcome](https://github.com/MarlBurroW/clawchat/issues)!*
+> 🖼️ *Screenshot coming soon — [contributions welcome](https://github.com/MarlBurroW/pinchchat/issues)!*
 
 ## ✨ Features
 
@@ -28,8 +28,8 @@
 ### Installation
 
 ```bash
-git clone https://github.com/MarlBurroW/clawchat.git
-cd clawchat
+git clone https://github.com/MarlBurroW/pinchchat.git
+cd pinchchat
 npm install
 cp .env.example .env
 ```
@@ -83,4 +83,4 @@ Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines
 
 ## 🔗 Links
 
-- [OpenClaw](https://github.com/openclaw/openclaw) — the AI agent platform ClawChat connects to
+- [OpenClaw](https://github.com/openclaw/openclaw) — the AI agent platform PinchChat connects to

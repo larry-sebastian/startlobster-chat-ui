@@ -77,7 +77,7 @@ export class GatewayClient {
       permissions: {},
       auth: { token: AUTH_TOKEN },
       locale: 'fr-FR',
-      userAgent: 'clawchat/1.0.0',
+      userAgent: 'pinchchat/1.0.0',
     }).then((res) => {
       console.log('[GW] connected!', res);
       this.connected = true;
