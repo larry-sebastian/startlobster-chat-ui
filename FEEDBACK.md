@@ -94,7 +94,8 @@
 ## Item #10
 - **Date:** 2026-02-11
 - **Priority:** medium
-- **Status:** pending
+- **Status:** done
+- **Completed:** 2026-02-11 — commit `02d2ab3`
 - **Description:** Remplacer le diagramme d'architecture ASCII art dans le README par un diagramme Mermaid
   - GitHub rend nativement les blocs ```mermaid dans les README
   - Utiliser un flowchart ou graph LR/TD montrant : Browser → WebSocket → OpenClaw Gateway → LLM Provider, avec les composants internes (LoginScreen, Chat, Sidebar, Gateway client, etc.)
