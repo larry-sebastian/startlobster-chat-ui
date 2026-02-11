@@ -136,6 +136,10 @@ graph TD
 
 [MIT](LICENSE) © Nicolas Varrot
 
+## 📋 Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a detailed history of changes.
+
 ## 🤝 Contributing
 
 Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
