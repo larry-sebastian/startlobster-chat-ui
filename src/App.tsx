@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useGateway } from './hooks/useGateway';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
@@ -13,6 +13,18 @@ export default function App() {
     authenticated, login, logout, connectError, isConnecting,
   } = useGateway();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Close sidebar on Escape key
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape' && sidebarOpen) {
+      setSidebarOpen(false);
+    }
+  }, [sidebarOpen]);
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [handleKeyDown]);
 
   // Still checking stored credentials
   if (authenticated === null) {
@@ -37,7 +49,7 @@ export default function App() {
         open={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0" aria-hidden={sidebarOpen ? true : undefined}>
         <Header status={status} sessionKey={activeSession} onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} activeSessionData={sessions.find(s => s.key === activeSession)} onLogout={logout} />
         <ConnectionBanner status={status} />
         <Chat messages={messages} isGenerating={isGenerating} status={status} onSend={sendMessage} onAbort={abort} />
