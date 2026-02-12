@@ -125,6 +125,8 @@ graph TD
 4. **Messages** — Messages stream in via WebSocket frames; the hook assembles partial chunks into complete messages
 5. **Send** — User input (+ optional file attachments) is sent as a JSON frame over the WebSocket
 
+> 📖 For a deeper dive into the codebase structure, see [ARCHITECTURE.md](ARCHITECTURE.md).
+
 ## 🌐 Adding a Language
 
 PinchChat uses a zero-dependency i18n system. Adding a new language takes ~5 minutes:
