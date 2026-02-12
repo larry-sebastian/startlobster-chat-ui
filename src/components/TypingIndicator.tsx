@@ -1,6 +1,28 @@
+import { useState, useEffect, useRef } from 'react';
 import { Bot } from 'lucide-react';
+import { useT } from '../hooks/useLocale';
+
+function formatElapsed(seconds: number): string {
+  if (seconds < 60) return `${seconds}s`;
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return `${m}m ${s.toString().padStart(2, '0')}s`;
+}
 
 export function TypingIndicator() {
+  const t = useT();
+  const [elapsed, setElapsed] = useState(0);
+  const startRef = useRef(Date.now());
+
+  useEffect(() => {
+    startRef.current = Date.now();
+    setElapsed(0);
+    const interval = setInterval(() => {
+      setElapsed(Math.floor((Date.now() - startRef.current) / 1000));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="animate-fade-in flex items-start gap-3 px-4 py-3">
       <div className="shrink-0 flex h-9 w-9 items-center justify-center rounded-2xl border border-white/10 bg-zinc-900/60">
@@ -11,7 +33,10 @@ export function TypingIndicator() {
           <span className="bounce-dot h-2 w-2 rounded-full bg-gradient-to-r from-cyan-300/80 to-violet-400/80" />
           <span className="bounce-dot h-2 w-2 rounded-full bg-gradient-to-r from-cyan-300/80 to-violet-400/80" />
           <span className="bounce-dot h-2 w-2 rounded-full bg-gradient-to-r from-cyan-300/80 to-violet-400/80" />
-          <span className="ml-2 text-xs text-zinc-400">Thinking…</span>
+          <span className="ml-2 text-xs text-zinc-400">{t('chat.thinking')}</span>
+          {elapsed >= 2 && (
+            <span className="text-[10px] text-zinc-500 tabular-nums ml-1">{formatElapsed(elapsed)}</span>
+          )}
         </div>
       </div>
     </div>

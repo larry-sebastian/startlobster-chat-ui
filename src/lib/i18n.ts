@@ -42,6 +42,7 @@ const en = {
   'chat.stop': 'Stop',
   'chat.scrollToBottom': 'New messages',
   'chat.messages': 'Chat messages',
+  'chat.thinking': 'Thinking…',
 
   // Sidebar
   'sidebar.title': 'Sessions',
@@ -121,6 +122,7 @@ const fr: Record<keyof typeof en, string> = {
   'chat.stop': 'Arrêter',
   'chat.scrollToBottom': 'Nouveaux messages',
   'chat.messages': 'Messages du chat',
+  'chat.thinking': 'Réflexion…',
 
   'sidebar.title': 'Sessions',
   'sidebar.empty': 'Aucune session',
