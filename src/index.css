@@ -46,6 +46,7 @@ textarea::-webkit-scrollbar-thumb:hover {
 
 textarea {
   overflow-x: hidden;
+  overflow-y: auto;
   overflow-wrap: break-word;
   word-break: break-word;
 }
