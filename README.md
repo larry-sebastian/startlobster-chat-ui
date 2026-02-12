@@ -5,9 +5,11 @@
 <h1 align="center">PinchChat</h1>
 
 [![CI](https://github.com/MarlBurroW/pinchchat/actions/workflows/ci.yml/badge.svg)](https://github.com/MarlBurroW/pinchchat/actions/workflows/ci.yml)
+[![GitHub Release](https://img.shields.io/github/v/release/MarlBurroW/pinchchat?color=cyan)](https://github.com/MarlBurroW/pinchchat/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org/)
 [![Docker](https://img.shields.io/badge/docker-ghcr.io-blue)](https://github.com/MarlBurroW/pinchchat/pkgs/container/pinchchat)
+[![GitHub Stars](https://img.shields.io/github/stars/MarlBurroW/pinchchat?style=social)](https://github.com/MarlBurroW/pinchchat)
 [![Website](https://img.shields.io/badge/website-GitHub%20Pages-blueviolet)](https://marlburrow.github.io/pinchchat/)
 
 **A sleek, dark-themed webchat UI for [OpenClaw](https://github.com/openclaw/openclaw) — monitor sessions, stream responses, and inspect tool calls in real-time.**
@@ -160,6 +162,19 @@ export const localeLabels: Record<string, string> = {
 4. **Done.** The language selector, `VITE_LOCALE`, and browser auto-detection all pick it up automatically.
 
 > **Tip:** TypeScript enforces that your new locale object has the same keys as `en` — missing translations won't compile.
+
+## ⌨️ Keyboard Shortcuts
+
+Press **?** anywhere to open the shortcuts panel.
+
+| Shortcut | Action |
+|---|---|
+| `Enter` | Send message |
+| `Shift + Enter` | New line |
+| `Esc` | Stop generation / close sidebar |
+| `Ctrl/⌘ + K` | Focus session search |
+| `Alt + ↑` / `Alt + ↓` | Switch between sessions |
+| `?` | Show shortcuts help |
 
 ## ❓ Troubleshooting
 
