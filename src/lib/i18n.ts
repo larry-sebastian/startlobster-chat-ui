@@ -41,6 +41,8 @@ const en = {
   'chat.send': 'Send',
   'chat.stop': 'Stop',
   'chat.scrollToBottom': 'New messages',
+  'chat.collapseTools': 'Collapse all tools',
+  'chat.expandTools': 'Expand all tools',
   'chat.messages': 'Chat messages',
   'chat.thinking': 'Thinking…',
 
@@ -131,6 +133,8 @@ const fr: Record<keyof typeof en, string> = {
   'chat.send': 'Envoyer',
   'chat.stop': 'Arrêter',
   'chat.scrollToBottom': 'Nouveaux messages',
+  'chat.collapseTools': 'Replier tous les outils',
+  'chat.expandTools': 'Déplier tous les outils',
   'chat.messages': 'Messages du chat',
   'chat.thinking': 'Réflexion…',
 

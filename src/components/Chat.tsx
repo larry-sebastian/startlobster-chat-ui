@@ -3,9 +3,10 @@ import { ChatMessageComponent } from './ChatMessage';
 import { ChatInput } from './ChatInput';
 import { TypingIndicator } from './TypingIndicator';
 import type { ChatMessage, ConnectionStatus } from '../types';
-import { Bot, ArrowDown, Loader2 } from 'lucide-react';
+import { Bot, ArrowDown, Loader2, ChevronsDownUp, ChevronsUpDown } from 'lucide-react';
 import { useT } from '../hooks/useLocale';
 import { getLocale, type TranslationKey } from '../lib/i18n';
+import { useToolCollapse } from '../contexts/ToolCollapseContext';
 
 interface Props {
   messages: ChatMessage[];
@@ -126,6 +127,9 @@ export function Chat({ messages, isGenerating, isLoadingHistory, status, session
 
   const showTyping = isGenerating && !hasStreamedText(messages);
 
+  const { globalState, collapseAll, expandAll } = useToolCollapse();
+  const hasToolCalls = useMemo(() => messages.some(m => m.blocks.some(b => b.type === 'tool_use' || b.type === 'tool_result')), [messages]);
+
   return (
     <div className="flex-1 flex flex-col min-h-0 relative">
       <div ref={scrollContainerRef} className="flex-1 overflow-y-auto overflow-x-hidden relative" role="log" aria-label={t('chat.messages')} aria-live="polite">
@@ -164,9 +168,19 @@ export function Chat({ messages, isGenerating, isLoadingHistory, status, session
           <div ref={bottomRef} />
         </div>
       </div>
-      {/* Scroll to bottom FAB */}
-      {showScrollBtn && (
-        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-10">
+      {/* Floating action buttons */}
+      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2">
+        {hasToolCalls && (
+          <button
+            onClick={globalState === 'expand-all' ? collapseAll : expandAll}
+            aria-label={globalState === 'expand-all' ? t('chat.collapseTools') : t('chat.expandTools')}
+            title={globalState === 'expand-all' ? t('chat.collapseTools') : t('chat.expandTools')}
+            className="flex items-center gap-1.5 rounded-full border border-white/10 bg-zinc-800/90 backdrop-blur-lg px-3 py-2 text-xs text-zinc-300 shadow-lg hover:bg-zinc-700/90 transition-all hover:shadow-violet-500/10"
+          >
+            {globalState === 'expand-all' ? <ChevronsDownUp size={14} className="text-violet-300" /> : <ChevronsUpDown size={14} className="text-violet-300" />}
+          </button>
+        )}
+        {showScrollBtn && (
           <button
             onClick={() => scrollToBottom('smooth')}
             aria-label={t('chat.scrollToBottom')}
@@ -175,8 +189,8 @@ export function Chat({ messages, isGenerating, isLoadingHistory, status, session
             <ArrowDown size={14} className="text-cyan-300" />
             <span className="hidden sm:inline">{t('chat.scrollToBottom')}</span>
           </button>
-        </div>
-      )}
+        )}
+      </div>
       <ChatInput onSend={handleSend} onAbort={onAbort} isGenerating={isGenerating} disabled={status !== 'connected'} sessionKey={sessionKey} />
     </div>
   );

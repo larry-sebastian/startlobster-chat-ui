@@ -1,8 +1,9 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { ChevronRight, ChevronDown, Check, Copy } from 'lucide-react';
 import hljs from 'highlight.js/lib/common';
 import { useT } from '../hooks/useLocale';
 import { ImageBlock } from './ImageBlock';
+import { useToolCollapse } from '../contexts/ToolCollapseContext';
 
 type ToolColor = { border: string; bg: string; text: string; icon: string; glow: string; expandBorder: string; expandBg: string };
 
@@ -217,7 +218,18 @@ function extractImageFromResult(result: string): { src: string; remaining: strin
 export function ToolCall({ name, input, result }: { name: string; input?: Record<string, unknown>; result?: string }) {
   const t = useT();
   const [open, setOpen] = useState(false);
+  const { globalState, version } = useToolCollapse();
+  const lastVersion = useRef(version);
   const c = getColor(name);
+
+  // Respond to global collapse/expand commands
+  useEffect(() => {
+    if (version !== lastVersion.current) {
+      lastVersion.current = version;
+      if (globalState === 'collapse-all') setOpen(false);
+      else if (globalState === 'expand-all') setOpen(true);
+    }
+  }, [globalState, version]);
 
   const inputStr = input ? (typeof input === 'string' ? input : JSON.stringify(input, null, 2)) : '';
   const hint = getContextHint(name, input);
