@@ -555,3 +555,23 @@
   - Toggle button to switch between rendered view and raw JSON
   - Show the full gateway message payload as formatted JSON
   - Useful for debugging and understanding the protocol
+
+## Item #53
+- **Date:** 2026-02-12
+- **Priority:** high
+- **Status:** done
+- **Completed:** 2026-02-12 — commit `4b41b45`
+- **Description:** Update the fake chat demo on the GitHub Pages landing page
+  - The animated demo is completely outdated — it no longer matches the current UI
+  - Needs to reflect the actual current look: cyan user bubbles, avatar display, date separators, channel icons, metadata button, tool call emojis, etc.
+  - Make it as close as possible to the real PinchChat UI
+
+## Item #54
+- **Date:** 2026-02-12
+- **Priority:** medium
+- **Status:** pending
+- **Description:** Better display of webhook/hook session messages
+  - Sessions created via /hooks/agent show raw prompt scaffolding (SECURITY NOTICE, EXTERNAL_UNTRUSTED_CONTENT delimiters, task IDs, job IDs)
+  - This raw envelope should be cleaned up or collapsed in the UI
+  - Strip or collapse the system scaffolding, show only the actual user message content
+  - Could detect the <<<EXTERNAL_UNTRUSTED_CONTENT>>> pattern and extract just the message body
