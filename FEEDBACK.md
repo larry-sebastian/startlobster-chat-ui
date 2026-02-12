@@ -290,7 +290,8 @@
 ## Item #32
 - **Date:** 2026-02-12
 - **Priority:** medium
-- **Status:** pending
+- **Status:** done
+- **Completed:** 2026-02-12 — commit `52a1a7f`
 - **Description:** Meilleur titre de session en haut de page
 - **Details:**
   - Actuellement on voit un UUID moche comme titre
@@ -302,7 +303,7 @@
 ## Item #33
 - **Date:** 2026-02-12
 - **Priority:** medium
-- **Status:** pending
+- **Status:** in-progress
 - **Description:** Afficher le nom de l'agent dans l'UI
 - **Details:**
   - Montrer clairement à quel agent on parle (pas juste l'agentId technique)

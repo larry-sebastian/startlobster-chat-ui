@@ -1,4 +1,4 @@
-import { Menu, Sparkles, LogOut, Volume2, VolumeOff, Cpu } from 'lucide-react';
+import { Menu, Sparkles, LogOut, Volume2, VolumeOff, Cpu, Bot } from 'lucide-react';
 import type { ConnectionStatus, Session } from '../types';
 import { useT } from '../hooks/useLocale';
 import { LanguageSelector } from './LanguageSelector';
@@ -31,7 +31,16 @@ export function Header({ status, sessionKey, onToggleSidebar, activeSessionData,
             <span className="font-semibold text-zinc-300 text-sm tracking-wide">{t('header.title')}</span>
             <Sparkles className="h-3.5 w-3.5 text-cyan-300/60" />
           </div>
-          <span className="text-xs text-zinc-500 truncate">{sessionLabel}</span>
+          <span className="text-xs text-zinc-500 truncate flex items-center gap-1.5">
+            {activeSessionData?.agentId && (
+              <span className="inline-flex items-center gap-0.5 text-cyan-400/70 font-medium">
+                <Bot className="h-3 w-3" />
+                {activeSessionData.agentId}
+                <span className="text-zinc-600 mx-0.5">·</span>
+              </span>
+            )}
+            {sessionLabel}
+          </span>
         </div>
       </div>
       <div className="flex items-center gap-2 text-sm">
