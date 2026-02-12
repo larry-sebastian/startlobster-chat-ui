@@ -508,7 +508,8 @@
 ## Item #47
 - **Date:** 2026-02-12
 - **Priority:** medium
-- **Status:** pending
+- **Status:** done
+- **Completed:** 2026-02-12 — commit `b20bf41`
 - **Description:** Themes — light mode, OLED black, custom theme support
   - Add theme switcher (dark default, light mode, OLED black)
   - Configurable accent color
