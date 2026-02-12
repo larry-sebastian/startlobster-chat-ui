@@ -15,7 +15,9 @@ interface Props {
 export function Sidebar({ sessions, activeSession, onSwitch, open, onClose }: Props) {
   const t = useT();
   const [filter, setFilter] = useState('');
+  const [focusIdx, setFocusIdx] = useState(-1);
   const searchRef = useRef<HTMLInputElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   // Keyboard shortcut: Ctrl+K or Cmd+K to focus search when sidebar is open
   useEffect(() => {
@@ -28,6 +30,9 @@ export function Sidebar({ sessions, activeSession, onSwitch, open, onClose }: Pr
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, []);
+
+  // Reset focus index when filter changes
+  useEffect(() => { setFocusIdx(-1); }, [filter]);
 
   const filtered = useMemo(() => {
     if (!filter.trim()) return sessions;
@@ -82,26 +87,58 @@ export function Sidebar({ sessions, activeSession, onSwitch, open, onClose }: Pr
           </div>
         )}
 
-        <div className="flex-1 overflow-y-auto py-2 px-2">
+        <div
+          ref={listRef}
+          className="flex-1 overflow-y-auto py-2 px-2"
+          role="listbox"
+          aria-label={t('sidebar.title')}
+          tabIndex={0}
+          onKeyDown={(e) => {
+            const len = filtered.length;
+            if (!len) return;
+            if (e.key === 'ArrowDown') {
+              e.preventDefault();
+              const next = focusIdx < len - 1 ? focusIdx + 1 : 0;
+              setFocusIdx(next);
+              listRef.current?.querySelectorAll<HTMLButtonElement>('[role="option"]')[next]?.scrollIntoView({ block: 'nearest' });
+            } else if (e.key === 'ArrowUp') {
+              e.preventDefault();
+              const prev = focusIdx > 0 ? focusIdx - 1 : len - 1;
+              setFocusIdx(prev);
+              listRef.current?.querySelectorAll<HTMLButtonElement>('[role="option"]')[prev]?.scrollIntoView({ block: 'nearest' });
+            } else if (e.key === 'Enter' && focusIdx >= 0 && focusIdx < len) {
+              e.preventDefault();
+              onSwitch(filtered[focusIdx].key);
+              onClose();
+            } else if (e.key === 'Escape') {
+              e.preventDefault();
+              onClose();
+            }
+          }}
+        >
           {sessions.length === 0 && (
             <div className="px-3 py-8 text-center text-zinc-500 text-sm">{t('sidebar.empty')}</div>
           )}
           {sessions.length > 0 && filtered.length === 0 && (
             <div className="px-3 py-6 text-center text-zinc-500 text-xs">{t('sidebar.noResults')}</div>
           )}
-          {filtered.map(s => {
+          {filtered.map((s, idx) => {
             const isActive = s.key === activeSession;
+            const isFocused = idx === focusIdx;
             return (
               <button
                 key={s.key}
+                role="option"
+                aria-selected={isActive}
                 onClick={() => { onSwitch(s.key); onClose(); }}
+                onMouseEnter={() => setFocusIdx(idx)}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl text-left text-sm transition-all mb-1 ${
                   isActive
                     ? 'bg-white/5 text-cyan-200 border border-white/8 shadow-[0_0_12px_rgba(34,211,238,0.08)]'
                     : s.isActive
                       ? 'bg-violet-500/5 text-violet-200 border border-violet-500/15 shadow-[0_0_10px_rgba(168,85,247,0.06)]'
                       : 'text-zinc-400 hover:bg-white/5 border border-transparent'
-                }`}
+                } ${isFocused && !isActive ? 'ring-1 ring-cyan-400/30' : ''}`}
               >
                 <div className="relative">
                   <SessionIcon session={s} isActive={s.isActive} isCurrentSession={isActive} />
