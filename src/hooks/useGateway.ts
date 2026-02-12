@@ -97,6 +97,8 @@ export function useGateway() {
           kind: s.kind as string | undefined,
           model: s.model as string | undefined,
           agentId: s.agentId as string | undefined,
+          updatedAt: s.updatedAt as number | undefined,
+          lastMessagePreview: s.lastMessagePreview as string | undefined,
         })));
       }
     } catch {

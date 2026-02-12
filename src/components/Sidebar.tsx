@@ -4,6 +4,7 @@ import type { Session } from '../types';
 import { useT } from '../hooks/useLocale';
 import { SessionIcon } from './SessionIcon';
 import { sessionDisplayName } from '../lib/sessionName';
+import { relativeTime } from '../lib/relativeTime';
 
 const PINNED_KEY = 'pinchchat-pinned-sessions';
 const WIDTH_KEY = 'pinchchat-sidebar-width';
@@ -131,6 +132,10 @@ export function Sidebar({ sessions, activeSession, onSwitch, onDelete, open, onC
     // Sort pinned sessions to top (preserving relative order within each group)
     const pinnedList = list.filter(s => pinned.has(s.key));
     const unpinnedList = list.filter(s => !pinned.has(s.key));
+    // Sort each group by most recently updated
+    const byRecent = (a: Session, b: Session) => (b.updatedAt || 0) - (a.updatedAt || 0);
+    pinnedList.sort(byRecent);
+    unpinnedList.sort(byRecent);
     return [...pinnedList, ...unpinnedList];
   }, [sessions, filter, pinned]);
 
@@ -251,6 +256,10 @@ export function Sidebar({ sessions, activeSession, onSwitch, onDelete, open, onC
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1">
                       <span className="flex-1 truncate">{sessionDisplayName(s)}</span>
+                      {(() => {
+                        const rel = relativeTime(s.updatedAt);
+                        return rel ? <span className="text-[10px] text-zinc-500 tabular-nums shrink-0">{rel}</span> : null;
+                      })()}
                       <button
                         onClick={(e) => togglePin(s.key, e)}
                         className={`shrink-0 p-0.5 rounded-lg transition-all ${
@@ -277,6 +286,9 @@ export function Sidebar({ sessions, activeSession, onSwitch, onDelete, open, onC
                         </span>
                       )}
                     </div>
+                    {s.lastMessagePreview && (
+                      <p className="text-[11px] text-zinc-500 truncate mt-0.5 leading-tight">{s.lastMessagePreview.replace(/\s+/g, ' ').slice(0, 80)}</p>
+                    )}
                     {(() => {
                       if (!s.contextTokens) return null;
                       const pct = Math.min(100, ((s.totalTokens || 0) / s.contextTokens) * 100);

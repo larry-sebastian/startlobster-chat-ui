@@ -30,6 +30,8 @@ export interface Session {
   kind?: string;
   model?: string;
   agentId?: string;
+  updatedAt?: number;
+  lastMessagePreview?: string;
 }
 
 export type ConnectionStatus = 'disconnected' | 'connecting' | 'connected';
