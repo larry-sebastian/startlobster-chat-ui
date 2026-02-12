@@ -237,14 +237,14 @@ export function ToolCall({ name, input, result }: { name: string; input?: Record
 
       {/* Result summary (always visible if result exists) */}
       {result && !open && (
-        <div className="mt-1 text-[11px] text-zinc-400 pl-2 truncate max-w-md">
+        <div className="mt-1 text-[11px] text-zinc-400 pl-2 truncate max-w-full">
           {truncateResult(result)}
         </div>
       )}
 
       {/* Expanded content */}
       {open && (
-        <div className={`mt-2 rounded-2xl border ${c.expandBorder} ${c.expandBg} p-3 space-y-2`}>
+        <div className={`mt-2 rounded-2xl border ${c.expandBorder} ${c.expandBg} p-3 space-y-2 overflow-hidden min-w-0`}>
           {inputStr && (
             <div>
               <div className={`text-[11px] ${c.text} opacity-70 mb-1 font-medium`}>{t('tool.parameters')}</div>

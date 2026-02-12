@@ -128,8 +128,8 @@ export function Chat({ messages, isGenerating, isLoadingHistory, status, session
 
   return (
     <div className="flex-1 flex flex-col min-h-0 relative">
-      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto relative" role="log" aria-label={t('chat.messages')} aria-live="polite">
-        <div className="max-w-4xl mx-auto py-4">
+      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto overflow-x-hidden relative" role="log" aria-label={t('chat.messages')} aria-live="polite">
+        <div className="max-w-4xl mx-auto py-4 w-full">
           {messages.length === 0 && isLoadingHistory && (
             <div className="flex flex-col items-center justify-center h-[60vh] text-zinc-500">
               <Loader2 className="h-8 w-8 text-cyan-300/60 animate-spin mb-4" />

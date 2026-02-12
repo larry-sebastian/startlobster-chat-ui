@@ -74,7 +74,7 @@ export default function App() {
   }
 
   return (
-    <div className="h-dvh flex bg-[#1e1e24] text-zinc-300 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.02),transparent_50%),radial_gradient(ellipse_at_bottom_right,rgba(99,102,241,0.04),transparent_50%)]" role="application" aria-label="PinchChat">
+    <div className="h-dvh flex overflow-x-hidden bg-[#1e1e24] text-zinc-300 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.02),transparent_50%),radial_gradient(ellipse_at_bottom_right,rgba(99,102,241,0.04),transparent_50%)]" role="application" aria-label="PinchChat">
       <Sidebar
         sessions={sessions}
         activeSession={activeSession}
