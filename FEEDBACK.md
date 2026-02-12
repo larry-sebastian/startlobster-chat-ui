@@ -268,7 +268,8 @@
 ## Item #30
 - **Date:** 2026-02-12
 - **Priority:** medium
-- **Status:** in-progress
+- **Status:** done
+- **Completed:** 2026-02-12 — commit `e94325b`
 - **Description:** Supprimer une session depuis la sidebar
 - **Details:**
   - Ajouter un bouton/action pour supprimer une session (clic droit ou icône)

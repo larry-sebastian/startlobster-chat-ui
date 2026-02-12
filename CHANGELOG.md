@@ -6,6 +6,11 @@ Format based on [Keep a Changelog](https://keepachangelog.com/), with [Conventio
 
 ## [Unreleased]
 
+## [1.7.0] — 2026-02-12
+
+### Added
+- **Delete session from sidebar** — trash icon on hover with confirmation dialog; calls `sessions.delete` on the gateway (`e94325b`)
+
 ## [1.6.0] — 2026-02-12
 
 ### Added
