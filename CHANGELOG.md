@@ -4,6 +4,11 @@ All notable changes to PinchChat are documented here.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/), with [Conventional Commits](https://www.conventionalcommits.org/).
 
+## [1.12.0] — 2026-02-12
+
+### Added
+- Export conversation as Markdown file — download button in header saves current session with formatted messages, tool calls, thinking blocks, and timestamps
+
 ## [1.11.1] — 2026-02-12
 
 ### Fixed
