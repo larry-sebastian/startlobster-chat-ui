@@ -81,4 +81,78 @@ describe('messagesToMarkdown', () => {
     expect(md).toContain('<details><summary>💭 Thinking</summary>');
     expect(md).toContain('Let me think...');
   });
+
+  it('renders tool_result blocks with name in details', () => {
+    const md = messagesToMarkdown([makeMessage({
+      role: 'assistant',
+      content: '',
+      blocks: [{ type: 'tool_result', name: 'exec', content: 'file1.txt\nfile2.txt' }],
+    })]);
+    expect(md).toContain('<details><summary>📋 Result (exec)</summary>');
+    expect(md).toContain('file1.txt\nfile2.txt');
+  });
+
+  it('renders tool_result blocks without name', () => {
+    const md = messagesToMarkdown([makeMessage({
+      role: 'assistant',
+      content: '',
+      blocks: [{ type: 'tool_result', content: 'some output' }],
+    })]);
+    expect(md).toContain('<details><summary>📋 Result</summary>');
+  });
+
+  it('skips tool_result blocks with no content', () => {
+    const md = messagesToMarkdown([makeMessage({
+      role: 'assistant',
+      content: '',
+      blocks: [{ type: 'tool_result', name: 'exec', content: '' }],
+    })]);
+    expect(md).not.toContain('📋 Result');
+  });
+
+  it('truncates long tool_result content to 5000 chars', () => {
+    const longContent = 'x'.repeat(6000);
+    const md = messagesToMarkdown([makeMessage({
+      role: 'assistant',
+      content: '',
+      blocks: [{ type: 'tool_result', content: longContent }],
+    })]);
+    // The content inside the code block should be sliced to 5000
+    const codeBlockMatch = md.match(/```\n([\s\S]*?)\n```/);
+    expect(codeBlockMatch).toBeTruthy();
+    expect(codeBlockMatch![1].length).toBe(5000);
+  });
+
+  it('renders tool_use blocks without input json when input is empty', () => {
+    const md = messagesToMarkdown([makeMessage({
+      role: 'assistant',
+      content: '',
+      blocks: [{ type: 'tool_use', name: 'read', input: {} }],
+    })]);
+    expect(md).toContain('`read`');
+    expect(md).not.toContain('```json');
+  });
+
+  it('omits session label heading when not provided', () => {
+    const md = messagesToMarkdown([]);
+    expect(md).not.toMatch(/^# /);
+  });
+
+  it('renders multiple blocks in sequence', () => {
+    const md = messagesToMarkdown([makeMessage({
+      role: 'assistant',
+      content: '',
+      blocks: [
+        { type: 'text', text: 'Starting...' },
+        { type: 'tool_use', name: 'exec', input: { command: 'ls' } },
+        { type: 'tool_result', name: 'exec', content: 'output' },
+        { type: 'text', text: 'Done!' },
+      ],
+    })]);
+    expect(md).toContain('Starting...');
+    expect(md).toContain('`exec`');
+    expect(md).toContain('📋 Result (exec)');
+    expect(md).toContain('Done!');
+  });
 });
+
