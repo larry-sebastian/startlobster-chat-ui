@@ -4,6 +4,10 @@ All notable changes to PinchChat are documented here.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/), with [Conventional Commits](https://www.conventionalcommits.org/).
 
+## [1.24.0] — 2026-02-13
+### Added
+- Raw JSON viewer toggle on each message — hover to reveal `{⁠}` button, click to show full gateway payload as formatted JSON with copy support
+
 ## [1.20.2] — 2026-02-13
 ### Fixed
 - Theme switcher now actually works — migrated ~150 hardcoded Tailwind color classes across all 17 components to CSS custom properties
