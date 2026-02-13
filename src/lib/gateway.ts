@@ -111,7 +111,7 @@ export class GatewayClient {
       commands: [],
       permissions: {},
       auth: { token: this.authToken },
-      locale: navigator.language || 'en',
+      locale: (typeof navigator !== 'undefined' ? navigator.language : undefined) || 'en',
       userAgent: `pinchchat/${__APP_VERSION__}`,
     }).then((res) => {
       log('connected!', res);
