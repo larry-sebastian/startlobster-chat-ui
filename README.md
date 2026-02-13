@@ -40,6 +40,10 @@
 - 🗂️ **Channel icons** — Discord, Telegram, cron, and other session types shown with distinct icons
 - 📤 **Export conversations** — download any session as a formatted Markdown file
 - 🌐 **i18n** — English and French built-in, easy to extend
+- 🔔 **Notification sounds** — subtle audio chime for new messages (toggleable)
+- ⌨️ **Keyboard shortcuts** — navigate sessions, toggle sidebar, search, and more without touching the mouse
+- 📱 **PWA support** — installable as a progressive web app with offline caching and auto-updates
+- ♿ **Accessible** — skip-to-chat link, focus-visible outlines, semantic HTML, `prefers-reduced-motion` support, ARIA live regions
 
 ## 🚀 Quick Start
 
