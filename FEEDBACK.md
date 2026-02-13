@@ -573,7 +573,8 @@
 ## Item #54
 - **Date:** 2026-02-12
 - **Priority:** medium
-- **Status:** pending
+- **Status:** done
+- **Completed:** 2026-02-13 — commit `c7cd47b`
 - **Description:** Better display of webhook/hook session messages
   - Sessions created via /hooks/agent show raw prompt scaffolding (SECURITY NOTICE, EXTERNAL_UNTRUSTED_CONTENT delimiters, task IDs, job IDs)
   - This raw envelope should be cleaned up or collapsed in the UI
