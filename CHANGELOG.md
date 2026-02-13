@@ -4,6 +4,11 @@ All notable changes to PinchChat are documented here.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/), with [Conventional Commits](https://www.conventionalcommits.org/).
 
+## [1.30.1] — 2026-02-13
+### Fixed
+- Added missing `aria-label` attributes to icon-only buttons (sidebar close, search clear, JSON copy) for screen reader accessibility
+- Added i18n keys for new aria-labels (EN + FR)
+
 ## [1.30.0] — 2026-02-13
 ### Added
 - Service worker for PWA support — static assets are cached for instant loads and offline shell
