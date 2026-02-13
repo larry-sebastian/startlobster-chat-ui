@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { Palette, Sun, Moon, Monitor, Laptop, Check } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
 import type { ThemeName, AccentColor } from '../contexts/ThemeContextDef';
@@ -26,31 +27,54 @@ export function ThemeSwitcher() {
   const { theme, accent, setTheme, setAccent } = useTheme();
   const t = useT();
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState({ top: 0, right: 0 });
+
+  const updatePos = useCallback(() => {
+    if (!btnRef.current) return;
+    const rect = btnRef.current.getBoundingClientRect();
+    setPos({
+      top: rect.bottom + 8,
+      right: window.innerWidth - rect.right,
+    });
+  }, []);
 
   useEffect(() => {
     if (!open) return;
-    const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
+    updatePos();
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as Node;
+      if (
+        btnRef.current && btnRef.current.contains(target) ||
+        panelRef.current && panelRef.current.contains(target)
+      ) return;
+      setOpen(false);
     };
-    // Use click (not mousedown) so button onClick fires first
-    document.addEventListener('click', handler, true);
-    return () => document.removeEventListener('click', handler, true);
-  }, [open]);
+    document.addEventListener('mousedown', handleClickOutside);
+    window.addEventListener('resize', updatePos);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('resize', updatePos);
+    };
+  }, [open, updatePos]);
 
   return (
-    <div ref={ref} className="relative">
+    <>
       <button
+        ref={btnRef}
         onClick={() => setOpen(!open)}
         className="flex items-center gap-1.5 rounded-2xl border border-[var(--pc-border)] bg-[var(--pc-bg-elevated)]/30 px-2.5 py-1.5 text-xs text-[var(--pc-text-muted)] hover:text-[var(--pc-text-secondary)] hover:bg-[var(--pc-bg-elevated)]/50 transition-colors"
         title={t('theme.title')}
       >
         <Palette size={14} />
       </button>
-      {open && (
-        <div className="absolute right-0 top-full mt-2 z-50 w-52 rounded-2xl border border-[var(--pc-border-strong)] bg-[var(--pc-bg-surface)] backdrop-blur-xl shadow-2xl p-3 animate-fade-in">
+      {open && createPortal(
+        <div
+          ref={panelRef}
+          className="fixed z-[9999] w-52 rounded-2xl border border-[var(--pc-border-strong)] bg-[var(--pc-bg-surface)] backdrop-blur-xl shadow-2xl p-3 animate-fade-in"
+          style={{ top: pos.top, right: pos.right }}
+        >
           <div className="text-[10px] uppercase tracking-wider text-[var(--pc-text-faint)] font-semibold mb-2">
             {t('theme.mode')}
           </div>
@@ -61,8 +85,7 @@ export function ThemeSwitcher() {
               return (
                 <button
                   key={opt.value}
-                  onMouseDown={(e) => e.stopPropagation()}
-                  onClick={() => { setTheme(opt.value); }}
+                  onClick={() => setTheme(opt.value)}
                   className={`flex-1 flex flex-col items-center gap-1 py-2 rounded-xl border text-xs transition-all ${
                     active
                       ? 'border-[var(--pc-accent)]/40 bg-[var(--pc-accent)]/10 text-[var(--pc-accent-light)]'
@@ -82,7 +105,6 @@ export function ThemeSwitcher() {
             {accentOptions.map(opt => (
               <button
                 key={opt.value}
-                onMouseDown={(e) => e.stopPropagation()}
                 onClick={() => setAccent(opt.value)}
                 className="relative h-7 w-7 rounded-full border-2 transition-all flex items-center justify-center"
                 style={{
@@ -96,8 +118,9 @@ export function ThemeSwitcher() {
               </button>
             ))}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
-    </div>
+    </>
   );
 }
