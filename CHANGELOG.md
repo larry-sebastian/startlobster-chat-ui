@@ -4,6 +4,12 @@ All notable changes to PinchChat are documented here.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/), with [Conventional Commits](https://www.conventionalcommits.org/).
 
+## [1.34.1] — 2026-02-13
+
+### Fixed
+- Drop Node 18 from CI matrix — Vite 7.3 requires Node 20.19+
+- Update minimum Node.js version to 20.19 in engines and docs
+
 ## [1.34.0] — 2026-02-13
 
 ### Added
