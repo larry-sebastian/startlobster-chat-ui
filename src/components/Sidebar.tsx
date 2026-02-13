@@ -8,6 +8,7 @@ import { relativeTime } from '../lib/relativeTime';
 
 const PINNED_KEY = 'pinchchat-pinned-sessions';
 const WIDTH_KEY = 'pinchchat-sidebar-width';
+const ORDER_KEY = 'pinchchat-session-order';
 const MIN_WIDTH = 220;
 const MAX_WIDTH = 480;
 const DEFAULT_WIDTH = 288; // w-72
@@ -37,6 +38,20 @@ function savePinnedSessions(pinned: Set<string>) {
   } catch { /* noop */ }
 }
 
+function getSavedOrder(): string[] {
+  try {
+    const raw = localStorage.getItem(ORDER_KEY);
+    if (raw) return JSON.parse(raw) as string[];
+  } catch { /* noop */ }
+  return [];
+}
+
+function saveOrder(order: string[]) {
+  try {
+    localStorage.setItem(ORDER_KEY, JSON.stringify(order));
+  } catch { /* noop */ }
+}
+
 interface Props {
   sessions: Session[];
   activeSession: string;
@@ -54,6 +69,9 @@ export function Sidebar({ sessions, activeSession, onSwitch, onDelete, open, onC
   const [width, setWidth] = useState(getSavedWidth);
   const [dragging, setDragging] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
+  const [customOrder, setCustomOrder] = useState<string[]>(getSavedOrder);
+  const [dragKey, setDragKey] = useState<string | null>(null);
+  const [dropTarget, setDropTarget] = useState<string | null>(null);
   const searchRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef({ startX: 0, startW: 0 });
@@ -132,12 +150,20 @@ export function Sidebar({ sessions, activeSession, onSwitch, onDelete, open, onC
     // Sort pinned sessions to top (preserving relative order within each group)
     const pinnedList = list.filter(s => pinned.has(s.key));
     const unpinnedList = list.filter(s => !pinned.has(s.key));
-    // Sort each group by most recently updated
-    const byRecent = (a: Session, b: Session) => (b.updatedAt || 0) - (a.updatedAt || 0);
-    pinnedList.sort(byRecent);
-    unpinnedList.sort(byRecent);
+    // Sort each group: use custom order if set, then fall back to most recently updated
+    const orderMap = new Map(customOrder.map((k, i) => [k, i]));
+    const byCustomThenRecent = (a: Session, b: Session) => {
+      const aIdx = orderMap.get(a.key);
+      const bIdx = orderMap.get(b.key);
+      if (aIdx !== undefined && bIdx !== undefined) return aIdx - bIdx;
+      if (aIdx !== undefined) return -1;
+      if (bIdx !== undefined) return 1;
+      return (b.updatedAt || 0) - (a.updatedAt || 0);
+    };
+    pinnedList.sort(byCustomThenRecent);
+    unpinnedList.sort(byCustomThenRecent);
     return [...pinnedList, ...unpinnedList];
-  }, [sessions, filter, pinned]);
+  }, [sessions, filter, pinned, customOrder]);
 
   return (
     <>
@@ -224,6 +250,8 @@ export function Sidebar({ sessions, activeSession, onSwitch, onDelete, open, onC
             const isFocused = idx === focusIdx;
             const isPinned = pinned.has(s.key);
             const isFirstUnpinned = !isPinned && idx > 0 && pinned.has(filtered[idx - 1].key);
+            const isDragged = dragKey === s.key;
+            const isDropTarget = dropTarget === s.key && dragKey !== s.key;
             return (
               <div key={s.key}>
                 {isFirstUnpinned && (
@@ -234,6 +262,38 @@ export function Sidebar({ sessions, activeSession, onSwitch, onDelete, open, onC
                 <button
                   role="option"
                   aria-selected={isActive}
+                  draggable={!filter.trim()}
+                  onDragStart={(e) => {
+                    setDragKey(s.key);
+                    e.dataTransfer.effectAllowed = 'move';
+                    e.dataTransfer.setData('text/plain', s.key);
+                  }}
+                  onDragEnd={() => { setDragKey(null); setDropTarget(null); }}
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    if (dragKey && dragKey !== s.key) setDropTarget(s.key);
+                  }}
+                  onDragLeave={() => { if (dropTarget === s.key) setDropTarget(null); }}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    if (!dragKey || dragKey === s.key) return;
+                    // Only reorder within same group (pinned or unpinned)
+                    const dragPinned = pinned.has(dragKey);
+                    const dropPinned = pinned.has(s.key);
+                    if (dragPinned !== dropPinned) { setDragKey(null); setDropTarget(null); return; }
+                    // Build new order from current filtered list
+                    const keys = filtered.map(f => f.key);
+                    const fromIdx = keys.indexOf(dragKey);
+                    const toIdx = keys.indexOf(s.key);
+                    if (fromIdx === -1 || toIdx === -1) return;
+                    keys.splice(fromIdx, 1);
+                    keys.splice(toIdx, 0, dragKey);
+                    setCustomOrder(keys);
+                    saveOrder(keys);
+                    setDragKey(null);
+                    setDropTarget(null);
+                  }}
                   onClick={() => { onSwitch(s.key); onClose(); }}
                   onMouseEnter={() => setFocusIdx(idx)}
                   className={`group/item w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl text-left text-sm transition-all mb-1 ${
@@ -242,7 +302,7 @@ export function Sidebar({ sessions, activeSession, onSwitch, onDelete, open, onC
                       : s.isActive
                         ? 'bg-violet-500/5 text-violet-200 border border-violet-500/15 shadow-[0_0_10px_rgba(168,85,247,0.06)]'
                         : 'text-pc-text-secondary hover:bg-[var(--pc-hover)] border border-transparent'
-                  } ${isFocused && !isActive ? 'ring-1 ring-[var(--pc-accent-dim)]' : ''}`}
+                  } ${isFocused && !isActive ? 'ring-1 ring-[var(--pc-accent-dim)]' : ''} ${isDragged ? 'opacity-40' : ''} ${isDropTarget ? 'ring-1 ring-[var(--pc-accent)] bg-[var(--pc-accent-glow)]' : ''}`}
                 >
                   <div className="relative">
                     <SessionIcon session={s} isActive={s.isActive} isCurrentSession={isActive} />
