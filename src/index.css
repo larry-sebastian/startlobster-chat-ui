@@ -177,6 +177,81 @@ html, body {
 .markdown-body th { background: var(--pc-accent-glow); }
 .markdown-body img { max-width: 100%; border-radius: 8px; }
 
+/* Highlighted textarea overlay */
+.ht-container {
+  position: relative;
+  flex: 1;
+}
+
+.ht-backdrop,
+.ht-textarea {
+  /* Must share identical text layout */
+  font-family: inherit;
+  font-size: 0.875rem; /* text-sm */
+  line-height: 1.25rem;
+  padding: 0.75rem 1rem; /* py-3 px-4 */
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.ht-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: var(--pc-text-primary);
+  border: 1px solid transparent;
+  border-radius: 1rem; /* rounded-2xl */
+  max-height: 200px;
+}
+
+.ht-textarea {
+  position: relative;
+  color: transparent;
+  caret-color: var(--pc-text-primary);
+  background: transparent !important;
+  resize: none;
+  z-index: 1;
+}
+
+/* Token colors */
+.ht-code-block {
+  color: #67e8f9; /* cyan-300 */
+  background: var(--pc-accent-glow);
+  border-radius: 4px;
+}
+
+.ht-inline-code {
+  color: #67e8f9;
+  background: var(--pc-accent-glow);
+  border-radius: 3px;
+  padding: 0 2px;
+}
+
+.ht-bold {
+  color: var(--pc-text-primary);
+  font-weight: 700;
+}
+
+.ht-italic {
+  color: var(--pc-text-secondary);
+  font-style: italic;
+}
+
+.ht-heading {
+  color: #a78bfa; /* violet-400 */
+  font-weight: 600;
+}
+
+.ht-link {
+  color: #67e8f9;
+  text-decoration: underline;
+}
+
 /* Accessibility: respect reduced-motion preferences */
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in {

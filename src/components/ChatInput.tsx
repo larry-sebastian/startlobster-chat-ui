@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback, lazy, Suspense } from 'react';
-import { Send, Square, Paperclip, X, FileText, Eye, EyeOff } from 'lucide-react';
+import { Send, Square, Paperclip, X, FileText, Eye, EyeOff, Highlighter } from 'lucide-react';
 import { useT } from '../hooks/useLocale';
+import { HighlightedTextarea } from './HighlightedTextarea';
 
 const ReactMarkdown = lazy(() => import('react-markdown'));
 const remarkGfm = import('remark-gfm').then(m => m.default);
@@ -91,6 +92,7 @@ export function ChatInput({ onSend, onAbort, isGenerating, disabled, sessionKey 
   const [files, setFiles] = useState<FileAttachment[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
   const [showPreview, setShowPreview] = useState(() => localStorage.getItem('pinchchat-md-preview') === '1');
+  const [highlightEnabled, setHighlightEnabled] = useState(() => localStorage.getItem('pinchchat-syntax-hl') !== '0');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -283,6 +285,15 @@ export function ChatInput({ onSend, onAbort, isGenerating, disabled, sessionKey 
             >
               {showPreview ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
+            {/* Syntax highlight toggle */}
+            <button
+              onClick={() => setHighlightEnabled(v => { const next = !v; localStorage.setItem('pinchchat-syntax-hl', next ? '1' : '0'); return next; })}
+              className={`shrink-0 h-11 w-11 rounded-2xl border border-pc-border bg-pc-elevated/30 flex items-center justify-center transition-colors ${highlightEnabled ? 'text-pc-accent-light bg-[var(--pc-accent-glow)]' : 'text-pc-text-secondary hover:text-pc-accent-light hover:bg-[var(--pc-hover)]'}`}
+              title={highlightEnabled ? 'Disable syntax highlight' : 'Enable syntax highlight'}
+              aria-label={highlightEnabled ? 'Disable syntax highlight' : 'Enable syntax highlight'}
+            >
+              <Highlighter size={18} />
+            </button>
             <input
               ref={fileInputRef}
               type="file"
@@ -292,10 +303,11 @@ export function ChatInput({ onSend, onAbort, isGenerating, disabled, sessionKey 
               accept="image/*,.pdf,.txt,.md,.json,.csv,.log,.py,.js,.ts,.tsx,.jsx,.html,.css,.yaml,.yml,.xml,.sql,.sh,.env,.toml"
             />
 
-            <textarea
+            <HighlightedTextarea
               ref={textareaRef}
               value={text}
-              onChange={(e) => setText(e.target.value)}
+              highlightEnabled={highlightEnabled}
+              onChange={(e) => setText((e.target as HTMLTextAreaElement).value)}
               onKeyDown={handleKeyDown}
               onPaste={handlePaste}
               placeholder={t('chat.inputPlaceholder')}
