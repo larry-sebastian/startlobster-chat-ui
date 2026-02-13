@@ -29,12 +29,16 @@ export function ThemeSwitcher() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!open) return;
     const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
     };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
-  }, []);
+    // Use click (not mousedown) so button onClick fires first
+    document.addEventListener('click', handler, true);
+    return () => document.removeEventListener('click', handler, true);
+  }, [open]);
 
   return (
     <div ref={ref} className="relative">
@@ -57,7 +61,8 @@ export function ThemeSwitcher() {
               return (
                 <button
                   key={opt.value}
-                  onClick={() => setTheme(opt.value)}
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onClick={() => { setTheme(opt.value); }}
                   className={`flex-1 flex flex-col items-center gap-1 py-2 rounded-xl border text-xs transition-all ${
                     active
                       ? 'border-[var(--pc-accent)]/40 bg-[var(--pc-accent)]/10 text-[var(--pc-accent-light)]'
@@ -77,6 +82,7 @@ export function ThemeSwitcher() {
             {accentOptions.map(opt => (
               <button
                 key={opt.value}
+                onMouseDown={(e) => e.stopPropagation()}
                 onClick={() => setAccent(opt.value)}
                 className="relative h-7 w-7 rounded-full border-2 transition-all flex items-center justify-center"
                 style={{
