@@ -1,5 +1,11 @@
 import { genId } from './utils';
 
+/** Debug logger — enable with localStorage.setItem('pinchchat:debug', '1') */
+const isDebug = () => {
+  try { return localStorage.getItem('pinchchat:debug') === '1'; } catch { return false; }
+};
+const log = (...args: unknown[]) => { if (isDebug()) console.log('[GW]', ...args); };
+
 /** JSON-safe payload type used for gateway messages. */
 export type JsonPayload = Record<string, unknown>;
 
@@ -57,12 +63,12 @@ export class GatewayClient {
     this._onStatus('connecting');
     this.ws = new WebSocket(this.wsUrl);
 
-    this.ws.onopen = () => { console.log('[GW] WS open'); };
+    this.ws.onopen = () => { log('WS open'); };
 
     this.ws.onmessage = (ev) => {
       let msg: GatewayMessage;
-      try { msg = JSON.parse(ev.data as string) as GatewayMessage; } catch { console.log('[GW] parse error', ev.data); return; }
-      console.log('[GW] msg:', msg.type, msg.event || msg.id || '', msg.ok);
+      try { msg = JSON.parse(ev.data as string) as GatewayMessage; } catch { log('parse error', ev.data); return; }
+      log('msg:', msg.type, msg.event || msg.id || '', msg.ok);
 
       if (msg.type === 'event') {
         if (msg.event === 'connect.challenge') {
@@ -81,7 +87,7 @@ export class GatewayClient {
     };
 
     this.ws.onclose = (ev) => {
-      console.log('[GW] WS close:', ev.code, ev.reason);
+      log('WS close:', ev.code, ev.reason);
       this.ws = null;
       this.connected = false;
       this._onStatus('disconnected');
@@ -90,7 +96,7 @@ export class GatewayClient {
       if (this.autoReconnect) this.scheduleReconnect();
     };
 
-    this.ws.onerror = (e) => { console.log('[GW] WS error', e); };
+    this.ws.onerror = (e) => { log('WS error', e); };
   }
 
   private handleChallenge() {
@@ -108,12 +114,12 @@ export class GatewayClient {
       locale: navigator.language || 'en',
       userAgent: `pinchchat/${__APP_VERSION__}`,
     }).then((res) => {
-      console.log('[GW] connected!', res);
+      log('connected!', res);
       this.connected = true;
       this.reconnectAttempts = 0;
       this._onStatus('connected');
     }).catch((err) => {
-      console.log('[GW] connect failed:', err);
+      log('connect failed:', err);
       this.autoReconnect = false;
       this.disconnect();
     });
@@ -125,7 +131,7 @@ export class GatewayClient {
     const jitter = Math.random() * base * 0.3;
     const delay = base + jitter;
     this.reconnectAttempts++;
-    console.log(`[GW] reconnecting in ${Math.round(delay)}ms (attempt ${this.reconnectAttempts})`);
+    log(`reconnecting in ${Math.round(delay)}ms (attempt ${this.reconnectAttempts})`);
     this.reconnectTimer = setTimeout(() => {
       this.reconnectTimer = null;
       this.connect();
