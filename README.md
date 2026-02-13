@@ -29,6 +29,10 @@
 - 📊 **Token usage tracking** — progress bars per session so you know how much context is left
 - 🖼️ **Inline images** — generated or read images render directly in chat with lightbox preview
 - 🎯 **Chat-focused** — no settings menus or config panels cluttering the screen. Just the conversation.
+- 🎨 **Themes** — Dark, Light, and OLED Black modes with 6 accent colors. Persisted per-browser.
+- 🧠 **Thinking/reasoning display** — see the agent's reasoning process in collapsible blocks with elapsed time
+- 🔍 **Message search** — Ctrl+F to search and navigate through conversation history
+- 📤 **Export conversations** — download any session as a formatted Markdown file
 - 🌐 **i18n** — English and French built-in, easy to extend
 
 ## 🚀 Quick Start
@@ -172,6 +176,7 @@ Press **?** anywhere to open the shortcuts panel.
 | `Enter` | Send message |
 | `Shift + Enter` | New line |
 | `Esc` | Stop generation / close sidebar |
+| `Ctrl/⌘ + F` | Search messages in current session |
 | `Ctrl/⌘ + K` | Focus session search |
 | `Alt + ↑` / `Alt + ↓` | Switch between sessions |
 | `?` | Show shortcuts help |
