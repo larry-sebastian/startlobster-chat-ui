@@ -97,6 +97,36 @@ All configuration is optional — credentials are entered at runtime via the log
 
 > **Note:** The gateway token is entered at runtime and stored in `localStorage` — it is never baked into the build.
 
+## 🎨 Customization
+
+PinchChat stores all preferences in `localStorage` — no server-side config needed.
+
+### Themes
+
+Click the palette icon in the header to switch between:
+
+| Theme | Description |
+|-------|-------------|
+| **Dark** (default) | Zinc-based dark theme, easy on the eyes |
+| **Light** | Clean light mode with white backgrounds |
+| **OLED** | Pure black backgrounds for OLED screens |
+| **System** | Follows your OS dark/light preference |
+
+### Accent Colors
+
+Six accent colors are available: **Cyan** (default), **Violet**, **Emerald**, **Amber**, **Rose**, and **Blue**. The accent tints buttons, links, progress bars, and user message bubbles.
+
+### Other Preferences
+
+These settings persist across sessions:
+
+- **Sidebar width** — drag the right edge to resize
+- **Session order** — drag & drop to reorder; pinned sessions stay on top
+- **Syntax highlighting** — toggle the `</>` button in the input area
+- **Split view** — open two sessions side by side (icon in header)
+- **Language** — switch between English and French via the globe icon
+- **Message drafts** — input text is preserved per-session when switching
+
 ## 🏗 Architecture
 
 ```mermaid
