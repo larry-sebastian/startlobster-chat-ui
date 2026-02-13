@@ -528,7 +528,8 @@
 ## Item #49
 - **Date:** 2026-02-12
 - **Priority:** medium
-- **Status:** pending
+- **Status:** done
+- **Completed:** 2026-02-13 — commit `b049243`
 - **Description:** Syntax highlight in the input textarea
   - Color code blocks even while typing in the prompt input
   - Highlight markdown syntax (bold, code, headers) in real-time

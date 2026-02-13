@@ -4,6 +4,11 @@ All notable changes to PinchChat are documented here.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/), with [Conventional Commits](https://www.conventionalcommits.org/).
 
+## [1.27.0] — 2026-02-13
+### Added
+- Syntax highlighting in chat input textarea — real-time markdown coloring (code blocks, inline code, bold, italic, headings, links) using transparent overlay technique
+- Toggle button (highlighter icon) to enable/disable syntax highlighting, persisted in localStorage
+
 ## [1.26.0] — 2026-02-13
 ### Added
 - Drag & drop session reordering in sidebar — custom order persists in localStorage, works within pinned/unpinned groups
