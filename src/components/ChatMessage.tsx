@@ -150,7 +150,21 @@ function MarkdownImage(props: React.ImgHTMLAttributes<HTMLImageElement>) {
   return <ImageBlock src={props.src || ''} alt={props.alt} />;
 }
 
-const markdownComponents = { pre: CodeBlock, img: MarkdownImage };
+function MarkdownLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
+  const { href, children, ...rest } = props;
+  const isExternal = href && /^https?:\/\//.test(href);
+  return (
+    <a
+      href={href}
+      {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      {...rest}
+    >
+      {children}
+    </a>
+  );
+}
+
+const markdownComponents = { pre: CodeBlock, img: MarkdownImage, a: MarkdownLink };
 
 function renderTextBlocks(blocks: MessageBlock[]) {
   return getTextBlocks(blocks).map((block, i) => (
