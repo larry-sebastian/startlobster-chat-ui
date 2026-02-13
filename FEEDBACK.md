@@ -605,7 +605,8 @@
 ## Item #57
 - **Date:** 2026-02-12
 - **Priority:** medium
-- **Status:** pending
+- **Status:** done
+- **Completed:** 2026-02-13 — commit `664fc0e`
 - **Source:** Josh (Bardak)
 - **Description:** Display agent thinking/reasoning content in chat
   - When the agent uses thinking/reasoning (extended thinking), show the thinking content in a collapsible section
