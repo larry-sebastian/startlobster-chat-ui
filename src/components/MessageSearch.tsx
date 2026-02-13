@@ -28,7 +28,7 @@ export function MessageSearch({ open, onClose, onSearch, matchCount }: Props) {
 
   // Reset active index when query changes
   useEffect(() => {
-    setActiveIndex(0);
+    setActiveIndex(0); // eslint-disable-line react-hooks/set-state-in-effect -- intentional: reset index on query change
   }, [query]);
 
   const navigate = useCallback((dir: 1 | -1) => {

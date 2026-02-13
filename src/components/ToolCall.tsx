@@ -243,7 +243,7 @@ export function ToolCall({ name, input, result }: { name: string; input?: Record
   useEffect(() => {
     if (version !== lastVersion.current) {
       lastVersion.current = version;
-      if (globalState === 'collapse-all') setOpen(false);
+      if (globalState === 'collapse-all') setOpen(false); // eslint-disable-line react-hooks/set-state-in-effect -- intentional: sync with global toggle
       else if (globalState === 'expand-all') setOpen(true);
     }
   }, [globalState, version]);

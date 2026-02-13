@@ -114,7 +114,7 @@ export function ChatInput({ onSend, onAbort, isGenerating, disabled, sessionKey 
     }
     // Restore draft for the new session
     const draft = sessionKey ? draftsRef.current.get(sessionKey) ?? '' : '';
-    setText(draft);
+    setText(draft); // eslint-disable-line react-hooks/set-state-in-effect -- intentional: restore draft on session switch
     prevSessionRef.current = sessionKey;
   }, [sessionKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
