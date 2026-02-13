@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Brain } from 'lucide-react';
 import { useT } from '../hooks/useLocale';
 
@@ -10,14 +10,14 @@ import { useT } from '../hooks/useLocale';
 export function ThinkingIndicator() {
   const t = useT();
   const [elapsed, setElapsed] = useState(0);
-  const startRef = useRef(Date.now());
+  const [start] = useState(() => Date.now());
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setElapsed(Math.floor((Date.now() - startRef.current) / 1000));
+      setElapsed(Math.floor((Date.now() - start) / 1000));
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [start]);
 
   const formatElapsed = (s: number) => {
     if (s < 60) return `${s}s`;

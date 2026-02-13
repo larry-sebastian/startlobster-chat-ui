@@ -6,7 +6,7 @@ import type { ChatMessage, ConnectionStatus } from '../types';
 import { Bot, ArrowDown, Loader2, ChevronsDownUp, ChevronsUpDown } from 'lucide-react';
 import { useT } from '../hooks/useLocale';
 import { getLocale, type TranslationKey } from '../lib/i18n';
-import { useToolCollapse } from '../contexts/ToolCollapseContext';
+import { useToolCollapse } from '../hooks/useToolCollapse';
 
 interface Props {
   messages: ChatMessage[];

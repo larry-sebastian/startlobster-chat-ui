@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Palette, Sun, Moon, Monitor, Check } from 'lucide-react';
-import { useTheme, type ThemeName, type AccentColor } from '../contexts/ThemeContext';
+import { useTheme } from '../hooks/useTheme';
+import type { ThemeName, AccentColor } from '../contexts/ThemeContextDef';
 import { useT } from '../hooks/useLocale';
 
 import type { TranslationKey } from '../lib/i18n';

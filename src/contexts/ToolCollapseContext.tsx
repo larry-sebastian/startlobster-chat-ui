@@ -1,25 +1,10 @@
-import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
+import { useState, useCallback, type ReactNode } from 'react';
+import { ToolCollapseContext } from './ToolCollapseContextDef';
 
-type ToolCollapseState = 'none' | 'collapse-all' | 'expand-all';
-
-interface ToolCollapseContextValue {
-  /** Global override: 'none' means each tool manages its own state */
-  globalState: ToolCollapseState;
-  /** Monotonically increasing version — tool calls reset local state when this changes */
-  version: number;
-  collapseAll: () => void;
-  expandAll: () => void;
-}
-
-const ToolCollapseContext = createContext<ToolCollapseContextValue>({
-  globalState: 'none',
-  version: 0,
-  collapseAll: () => {},
-  expandAll: () => {},
-});
+export { ToolCollapseContext } from './ToolCollapseContextDef';
 
 export function ToolCollapseProvider({ children }: { children: ReactNode }) {
-  const [globalState, setGlobalState] = useState<ToolCollapseState>('none');
+  const [globalState, setGlobalState] = useState<'none' | 'collapse-all' | 'expand-all'>('none');
   const [version, setVersion] = useState(0);
 
   const collapseAll = useCallback(() => {
@@ -37,8 +22,4 @@ export function ToolCollapseProvider({ children }: { children: ReactNode }) {
       {children}
     </ToolCollapseContext.Provider>
   );
-}
-
-export function useToolCollapse() {
-  return useContext(ToolCollapseContext);
 }

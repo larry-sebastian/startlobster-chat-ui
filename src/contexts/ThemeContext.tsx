@@ -1,23 +1,7 @@
-import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
+import { useState, useEffect, useCallback, type ReactNode } from 'react';
+import { ThemeContext, type ThemeName, type AccentColor } from './ThemeContextDef';
 
-export type ThemeName = 'dark' | 'light' | 'oled';
-export type AccentColor = 'cyan' | 'violet' | 'emerald' | 'amber' | 'rose' | 'blue';
-
-interface ThemeContextValue {
-  theme: ThemeName;
-  accent: AccentColor;
-  setTheme: (t: ThemeName) => void;
-  setAccent: (a: AccentColor) => void;
-}
-
-const ThemeContext = createContext<ThemeContextValue>({
-  theme: 'dark',
-  accent: 'cyan',
-  setTheme: () => {},
-  setAccent: () => {},
-});
-
-export const useTheme = () => useContext(ThemeContext);
+export type { ThemeName, AccentColor } from './ThemeContextDef';
 
 const STORAGE_KEY = 'pinchchat-theme';
 
@@ -145,7 +129,7 @@ function loadStored(): StoredTheme {
       const parsed = JSON.parse(raw);
       if (parsed.theme in themes && parsed.accent in accents) return parsed;
     }
-  } catch {}
+  } catch { /* ignore invalid stored JSON */ }
   return { theme: 'dark', accent: 'cyan' };
 }
 

@@ -578,3 +578,48 @@
   - This raw envelope should be cleaned up or collapsed in the UI
   - Strip or collapse the system scaffolding, show only the actual user message content
   - Could detect the <<<EXTERNAL_UNTRUSTED_CONTENT>>> pattern and extract just the message body
+
+## Item #55
+- **Date:** 2026-02-12
+- **Priority:** high
+- **Status:** pending
+- **Description:** Bug: Theme switcher (v1.20.0) doesn't work — clicking options closes the popup and nothing changes visually
+  - Root cause: the ThemeContext and CSS variables ARE being set correctly, but almost all components still use hardcoded Tailwind classes (bg-zinc-800, text-zinc-400, border-white/8, etc.) instead of the CSS variables
+  - The Tailwind classes override the CSS variables, so theme changes have zero visual effect
+  - FIX: Migrate ALL hardcoded color classes across ALL components to use the CSS variables from ThemeContext. This includes: ChatMessage, Sidebar, Header, Chat, LoginScreen, ConnectionBanner, ToolCall, CodeBlock, ImageBlock, ErrorBoundary, KeyboardShortcuts, ChatInput, TypingIndicator, DateSeparator, etc.
+  - Also check index.css / globals for hardcoded colors
+  - This is a multi-file migration — may take several runs. Do it systematically, component by component.
+  - TEST: after each component migration, verify Dark/Light/OLED all look correct
+
+## Item #56
+- **Date:** 2026-02-12
+- **Priority:** medium
+- **Status:** pending
+- **Source:** Josh (Bardak)
+- **Description:** Drag & drop session reordering in sidebar
+  - Allow users to drag sessions to reorder them manually in the sidebar
+  - The custom order should persist in localStorage
+  - Works alongside the existing pin feature (pinned group stays on top, but order within groups is customizable)
+
+## Item #57
+- **Date:** 2026-02-12
+- **Priority:** medium
+- **Status:** pending
+- **Source:** Josh (Bardak)
+- **Description:** Display agent thinking/reasoning content in chat
+  - When the agent uses thinking/reasoning (extended thinking), show the thinking content in a collapsible section
+  - Currently PinchChat shows a "Reasoning…" badge but doesn't display the actual thinking text
+  - Add an expandable block (like tool calls) that shows the thinking content when available
+  - Some models stream thinking — handle both streamed and final thinking blocks
+
+## Item #58
+- **Date:** 2026-02-13
+- **Priority:** high
+- **Status:** pending
+- **Description:** Fix CI lint errors blocking ALL release workflows since v1.14.0
+  - 4 ESLint errors cause every release.yml run to fail:
+  1. ThemeContext.tsx: exports useTheme hook alongside Provider component → react-refresh/only-export-components. Fix: move useTheme to a separate file or use eslint-disable.
+  2. ThemeContext.tsx: empty catch block → no-empty. Fix: add a comment.
+  3. ToolCollapseContext.tsx: same react-refresh/only-export-components issue.
+  4. ToolCall.tsx:246: setState in useEffect → react-hooks/set-state-in-effect. Fix: use useSyncExternalStore or useCallback pattern.
+  - This is BLOCKING all GitHub Releases and Docker image builds. Fix ASAP.

@@ -3,7 +3,7 @@ import { ChevronRight, ChevronDown, Check, Copy, WrapText, AlignLeft } from 'luc
 import hljs from 'highlight.js/lib/common';
 import { useT } from '../hooks/useLocale';
 import { ImageBlock } from './ImageBlock';
-import { useToolCollapse } from '../contexts/ToolCollapseContext';
+import { useToolCollapse } from '../hooks/useToolCollapse';
 
 type ToolColor = { border: string; bg: string; text: string; icon: string; glow: string; expandBorder: string; expandBg: string };
 
