@@ -3,7 +3,7 @@ import { ChatMessageComponent } from './ChatMessage';
 import { ChatInput } from './ChatInput';
 import { TypingIndicator } from './TypingIndicator';
 import type { ChatMessage, ConnectionStatus } from '../types';
-import { Bot, ArrowDown, Loader2, ChevronsDownUp, ChevronsUpDown } from 'lucide-react';
+import { Bot, ArrowDown, Loader2, ChevronsDownUp, ChevronsUpDown, Sparkles } from 'lucide-react';
 import { MessageSearch } from './MessageSearch';
 import { useT } from '../hooks/useLocale';
 import { getLocale, type TranslationKey } from '../lib/i18n';
@@ -248,6 +248,23 @@ export function Chat({ messages, isGenerating, isLoadingHistory, status, session
               </div>
               <div className="text-lg text-pc-text font-semibold">{t('chat.welcome')}</div>
               <div className="text-sm mt-1 text-pc-text-muted">{t('chat.welcomeSub')}</div>
+              <div className="mt-8 flex flex-col items-center gap-3 max-w-md w-full">
+                <div className="flex items-center gap-1.5 text-xs text-pc-text-faint">
+                  <Sparkles size={12} />
+                  <span>{t('chat.suggestions')}</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
+                  {(['chat.suggestion1', 'chat.suggestion2', 'chat.suggestion3', 'chat.suggestion4'] as const).map((key) => (
+                    <button
+                      key={key}
+                      onClick={() => onSend(t(key))}
+                      className="text-left text-sm px-4 py-3 rounded-2xl border border-pc-border bg-pc-elevated/30 text-pc-text-secondary hover:bg-[var(--pc-hover)] hover:text-pc-text hover:border-[var(--pc-accent-dim)] transition-all duration-200 leading-snug"
+                    >
+                      {t(key)}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
           {visibleMessages.map(({ msg, showSep, isFirstInGroup }) => {

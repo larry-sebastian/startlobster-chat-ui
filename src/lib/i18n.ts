@@ -34,6 +34,11 @@ const en = {
   // Chat
   'chat.welcome': 'PinchChat',
   'chat.welcomeSub': 'Send a message to get started',
+  'chat.suggestions': 'Try asking...',
+  'chat.suggestion1': 'Summarize my recent emails',
+  'chat.suggestion2': "What's on my calendar today?",
+  'chat.suggestion3': 'Search the web for latest news',
+  'chat.suggestion4': 'Help me write a script',
   'chat.loadingHistory': 'Loading messages…',
   'chat.inputPlaceholder': 'Type a message…',
   'chat.inputLabel': 'Message',
@@ -158,6 +163,11 @@ const fr: Record<keyof typeof en, string> = {
 
   'chat.welcome': 'PinchChat',
   'chat.welcomeSub': 'Envoyez un message pour commencer',
+  'chat.suggestions': 'Essayez par exemple...',
+  'chat.suggestion1': 'Résume mes derniers emails',
+  'chat.suggestion2': "Qu'est-ce que j'ai au calendrier aujourd'hui ?",
+  'chat.suggestion3': 'Cherche sur le web les dernières actus',
+  'chat.suggestion4': "Aide-moi à écrire un script",
   'chat.loadingHistory': 'Chargement des messages…',
   'chat.inputPlaceholder': 'Tapez un message…',
   'chat.inputLabel': 'Message',
