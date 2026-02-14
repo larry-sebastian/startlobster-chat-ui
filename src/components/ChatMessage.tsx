@@ -10,7 +10,7 @@ import { CodeBlock } from './CodeBlock';
 import { ToolCall } from './ToolCall';
 import { ImageBlock } from './ImageBlock';
 import { buildImageSrc } from '../lib/image';
-import { Bot, User, Wrench, Copy, Check, CheckCheck, RefreshCw, Zap, Info, Webhook, Braces, Clock, AlertCircle } from 'lucide-react';
+import { Bot, User, Wrench, Copy, Check, CheckCheck, RefreshCw, Zap, Info, Webhook, Braces, Clock, AlertCircle, Bookmark } from 'lucide-react';
 import { t, getLocale } from '../lib/i18n';
 import { useLocale } from '../hooks/useLocale';
 import { stripWebhookScaffolding, hasWebhookScaffolding } from '../lib/systemEvent';
@@ -412,7 +412,7 @@ function SystemEventMessage({ message }: { message: ChatMessageType }) {
   );
 }
 
-export const ChatMessageComponent = memo(function ChatMessageComponent({ message: rawMessage, onRetry, agentAvatarUrl, isFirstInGroup = true }: { message: ChatMessageType; onRetry?: (text: string) => void; agentAvatarUrl?: string; isFirstInGroup?: boolean }) {
+export const ChatMessageComponent = memo(function ChatMessageComponent({ message: rawMessage, onRetry, agentAvatarUrl, isFirstInGroup = true, isBookmarked = false, onToggleBookmark }: { message: ChatMessageType; onRetry?: (text: string) => void; agentAvatarUrl?: string; isFirstInGroup?: boolean; isBookmarked?: boolean; onToggleBookmark?: () => void }) {
   useLocale(); // re-render on locale change
   const { resolvedTheme } = useTheme();
   const isLight = resolvedTheme === 'light';
@@ -491,6 +491,16 @@ export const ChatMessageComponent = memo(function ChatMessageComponent({ message
             <CopyButton text={getPlainText(message)} />
           )}
           <div className={`absolute top-2 ${isUser ? 'left-2' : 'right-10'} flex gap-1 opacity-0 group-hover:opacity-100 transition-all z-10`}>
+            {onToggleBookmark && (
+              <button
+                onClick={(e) => { e.stopPropagation(); onToggleBookmark(); }}
+                className={`h-7 w-7 rounded-lg border border-pc-border bg-pc-elevated/80 backdrop-blur-sm flex items-center justify-center transition-all ${isBookmarked ? 'text-amber-400 opacity-100' : 'text-pc-text-secondary hover:text-amber-400'}`}
+                title={isBookmarked ? t('message.removeBookmark') : t('message.bookmark')}
+                aria-label={isBookmarked ? t('message.removeBookmark') : t('message.bookmark')}
+              >
+                <Bookmark size={13} className={isBookmarked ? 'fill-amber-400' : ''} />
+              </button>
+            )}
             <MetadataViewer metadata={message.metadata} />
             <RawJsonToggle isOpen={showRawJson} onToggle={() => setShowRawJson(o => !o)} />
           </div>
@@ -538,8 +548,11 @@ export const ChatMessageComponent = memo(function ChatMessageComponent({ message
           {/* Raw JSON viewer */}
           {showRawJson && <RawJsonPanel message={rawMessage} />}
         </div>
-        {(message.timestamp || wasWebhookMessage) && (
+        {(message.timestamp || wasWebhookMessage || isBookmarked) && (
           <div className={`mt-1 flex items-center gap-1.5 text-[11px] text-pc-text-muted ${isUser ? 'justify-end pr-2' : 'pl-2'}`}>
+            {isBookmarked && (
+              <Bookmark size={10} className="text-amber-400 fill-amber-400" />
+            )}
             {wasWebhookMessage && (
               <span className="inline-flex items-center gap-0.5 text-[10px] text-pc-text-faint" title="Webhook message (scaffolding stripped)">
                 <Webhook size={10} className="opacity-60" />

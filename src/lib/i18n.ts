@@ -142,6 +142,11 @@ const en = {
   'settings.sendShortcut': 'Send with',
   'settings.sendEnter': 'Enter',
   'settings.sendCtrlEnter': 'Ctrl+Enter',
+
+  // Bookmarks
+  'message.bookmark': 'Bookmark message',
+  'message.removeBookmark': 'Remove bookmark',
+  'chat.bookmarks': 'Bookmarks',
 } as const;
 
 const fr: Record<keyof typeof en, string> = {
@@ -264,6 +269,10 @@ const fr: Record<keyof typeof en, string> = {
   'settings.sendShortcut': 'Envoyer avec',
   'settings.sendEnter': 'Entrée',
   'settings.sendCtrlEnter': 'Ctrl+Entrée',
+
+  'message.bookmark': 'Marquer le message',
+  'message.removeBookmark': 'Retirer le marque-page',
+  'chat.bookmarks': 'Marque-pages',
 };
 
 export type TranslationKey = keyof typeof en;

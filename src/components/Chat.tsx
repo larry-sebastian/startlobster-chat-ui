@@ -3,11 +3,12 @@ import { ChatMessageComponent } from './ChatMessage';
 import { ChatInput } from './ChatInput';
 import { TypingIndicator } from './TypingIndicator';
 import type { ChatMessage, ConnectionStatus } from '../types';
-import { Bot, ArrowDown, Loader2, ChevronsDownUp, ChevronsUpDown, Sparkles } from 'lucide-react';
+import { Bot, ArrowDown, Loader2, ChevronsDownUp, ChevronsUpDown, Sparkles, Bookmark } from 'lucide-react';
 import { MessageSearch } from './MessageSearch';
 import { useT } from '../hooks/useLocale';
 import { getLocale, type TranslationKey } from '../lib/i18n';
 import { useToolCollapse } from '../hooks/useToolCollapse';
+import { useBookmarks } from '../hooks/useBookmarks';
 
 interface Props {
   messages: ChatMessage[];
@@ -174,6 +175,9 @@ export function Chat({ messages, isGenerating, isLoadingHistory, status, session
   const showTyping = isGenerating && !hasStreamedText(messages);
 
   const { globalState, collapseAll, expandAll } = useToolCollapse();
+  const { toggle: toggleBookmark, isBookmarked, getForSession: getBookmarks } = useBookmarks();
+  const sessionBookmarks = useMemo(() => sessionKey ? getBookmarks(sessionKey) : [], [getBookmarks, sessionKey]);
+  const [showBookmarks, setShowBookmarks] = useState(false);
   const hasToolCalls = useMemo(() => messages.some(m => m.blocks.some(b => b.type === 'tool_use' || b.type === 'tool_result')), [messages]);
 
   // Message search
@@ -280,7 +284,7 @@ export function Chat({ messages, isGenerating, isLoadingHistory, status, session
                     </div>
                   )}
                   <div className={isActiveMatch ? 'ring-1 ring-pc-accent-light/40 rounded-lg' : ''}>
-                    <ChatMessageComponent message={msg} onRetry={!isGenerating ? handleSend : undefined} agentAvatarUrl={agentAvatarUrl} isFirstInGroup={isFirstInGroup} />
+                    <ChatMessageComponent message={msg} onRetry={!isGenerating ? handleSend : undefined} agentAvatarUrl={agentAvatarUrl} isFirstInGroup={isFirstInGroup} isBookmarked={isBookmarked(msg.id)} onToggleBookmark={sessionKey ? () => toggleBookmark(msg.id, sessionKey, (msg.content || '').slice(0, 120), msg.timestamp) : undefined} />
                   </div>
                 </div>
             );
@@ -288,6 +292,28 @@ export function Chat({ messages, isGenerating, isLoadingHistory, status, session
           {showTyping && <TypingIndicator />}
           <div ref={bottomRef} />
         </div>
+        {/* Bookmarks panel */}
+        {showBookmarks && sessionBookmarks.length > 0 && (
+          <div className="sticky bottom-14 z-20 flex justify-center pointer-events-none pb-1">
+            <div className="pointer-events-auto w-72 max-h-48 overflow-y-auto rounded-2xl border border-pc-border-strong bg-pc-elevated/95 backdrop-blur-xl shadow-2xl p-2">
+              <div className="text-[10px] uppercase tracking-wider text-pc-text-muted font-semibold px-2 py-1">{t('chat.bookmarks')}</div>
+              {sessionBookmarks.map(b => (
+                <button
+                  key={b.messageId}
+                  onClick={() => {
+                    const el = document.querySelector(`[data-msg-id="${b.messageId}"]`);
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setShowBookmarks(false);
+                  }}
+                  className="w-full text-left px-2 py-1.5 rounded-xl hover:bg-[var(--pc-hover)] text-xs text-pc-text-secondary truncate transition-colors"
+                >
+                  <span className="text-amber-400 mr-1">★</span>
+                  {b.preview || '(empty)'}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
         {/* Floating action buttons — sticky to bottom of scroll area */}
         {(hasToolCalls || showScrollBtn || newMessageCount > 0) && (
           <div className="sticky bottom-3 z-10 flex justify-center pointer-events-none pb-1">
@@ -300,6 +326,17 @@ export function Chat({ messages, isGenerating, isLoadingHistory, status, session
                   className="flex items-center gap-1.5 rounded-full border border-pc-border-strong bg-pc-elevated/90 backdrop-blur-lg px-3 py-2 text-xs text-pc-text shadow-lg hover:bg-pc-elevated/90 transition-all hover:shadow-violet-500/10"
                 >
                   {globalState === 'expand-all' ? <ChevronsDownUp size={14} className="text-violet-300" /> : <ChevronsUpDown size={14} className="text-violet-300" />}
+                </button>
+              )}
+              {sessionBookmarks.length > 0 && (
+                <button
+                  onClick={() => setShowBookmarks(v => !v)}
+                  aria-label={t('chat.bookmarks')}
+                  title={t('chat.bookmarks')}
+                  className={`flex items-center gap-1.5 rounded-full border border-pc-border-strong bg-pc-elevated/90 backdrop-blur-lg px-3 py-2 text-xs text-pc-text shadow-lg hover:bg-pc-elevated/90 transition-all hover:shadow-amber-500/10 ${showBookmarks ? 'ring-1 ring-amber-400/40' : ''}`}
+                >
+                  <Bookmark size={14} className="text-amber-300 fill-amber-300" />
+                  <span className="text-[10px] tabular-nums text-pc-text-muted">{sessionBookmarks.length}</span>
                 </button>
               )}
               {(showScrollBtn || newMessageCount > 0) && (
