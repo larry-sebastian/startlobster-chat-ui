@@ -18,7 +18,7 @@
 > 🎬 **[See the live demo →](https://marlburrow.github.io/pinchchat/)** — interactive preview of the UI with tool call visualization, streaming, and more.
 
 <p align="center">
-  <img src="public/screenshot.png" alt="PinchChat Screenshot" width="800" />
+  <img src="docs/demo.gif" alt="PinchChat Demo" width="800" />
 </p>
 
 ## ✨ Features

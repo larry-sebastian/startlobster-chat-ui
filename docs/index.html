@@ -600,37 +600,9 @@
         <a href="https://github.com/MarlBurroW/pinchchat" class="btn btn-secondary">⭐ GitHub</a>
       </div>
 
-      <!-- Live demo — the first thing visitors see -->
-      <div class="demo-window">
-        <div class="demo-sidebar">
-          <div class="demo-sidebar-header">
-            <img src="https://raw.githubusercontent.com/MarlBurroW/pinchchat/main/public/logo.png" alt="" class="demo-sidebar-logo" />
-            <span>PinchChat</span>
-          </div>
-          <div class="demo-session demo-session-active">
-            <div class="demo-session-name"><span class="demo-session-icon">💬</span> Main Session</div>
-            <div class="demo-token-bar"><div class="demo-token-fill" style="width:42%"></div></div>
-          </div>
-          <div class="demo-session">
-            <div class="demo-session-name"><span class="demo-session-icon">⏰</span> Daily AI Watch</div>
-            <div class="demo-token-bar"><div class="demo-token-fill demo-token-low" style="width:18%"></div></div>
-          </div>
-          <div class="demo-session">
-            <div class="demo-session-name"><svg class="demo-session-icon" style="width:12px;height:12px;display:inline" viewBox="0 0 127.14 96.36" fill="#5865F2"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg> Discord</div>
-            <div class="demo-token-bar"><div class="demo-token-fill" style="width:67%"></div></div>
-          </div>
-          <div class="demo-session">
-            <div class="demo-session-name"><svg class="demo-session-icon" style="width:12px;height:12px;display:inline" viewBox="0 0 24 24" fill="#26A5E4"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg> Telegram</div>
-            <div class="demo-token-bar"><div class="demo-token-fill demo-token-low" style="width:8%"></div></div>
-          </div>
-        </div>
-        <div class="demo-chat">
-          <div class="demo-chat-scroll" id="demo-chat-area"></div>
-          <div class="demo-input">
-            <div class="demo-input-box" id="demo-input-text"></div>
-            <div class="demo-send-btn">➤</div>
-          </div>
-        </div>
+      <!-- Live demo GIF -->
+      <div style="max-width: 860px; margin: 0 auto; border-radius: 1rem; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 80px rgba(34,211,238,0.06); border: 1px solid var(--border);">
+        <img src="demo.gif" alt="PinchChat Demo" style="width: 100%; display: block;" />
       </div>
     </div>
   </section>
@@ -879,122 +851,6 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
     }, { threshold: 0.15 });
     rows.forEach(r => observer.observe(r));
-
-    // ── Demo animation ──
-    const chat = document.getElementById('demo-chat-area');
-    const input = document.getElementById('demo-input-text');
-
-    const scenario = [
-      { type: 'date-sep', text: 'Today', delay: 0 },
-      { type: 'input-type', text: 'What\'s the weather in Grenoble and check my latest emails?', delay: 600 },
-      { type: 'input-send', delay: 800 },
-      { type: 'user-msg', text: 'What\'s the weather in Grenoble and check my latest emails?', delay: 200 },
-      { type: 'thinking', delay: 400 },
-      { type: 'tool-badge', name: 'web_search', cls: 'demo-tool-web', icon: '🌐', label: 'web_search', delay: 800 },
-      { type: 'tool-expand', tool: 'web_search', params: '{ "query": "weather Grenoble today" }', result: '☀️ Grenoble: 14°C, partly cloudy\nWind: 12 km/h NW · Humidity: 58%', delay: 600 },
-      { type: 'tool-badge', name: 'exec', cls: 'demo-tool-exec', icon: '⚡', label: 'exec', delay: 500 },
-      { type: 'tool-expand', tool: 'exec', params: '{ "command": "gmail unread 3" }', result: '1. [Urgent] Deploy review — team@fasst.io\n2. Charlotte school — photo day\n3. Newsletter — This Week in AI', delay: 700 },
-      { type: 'remove-thinking', delay: 100 },
-      { type: 'assistant-msg', html: '🌤️ <strong>Grenoble</strong> — 14°C, partly cloudy. Clear tonight.<br><br>📧 <strong>3 unread:</strong><br>1. <code>[Urgent]</code> Deploy review — team@fasst.io<br>2. Charlotte\'s school — photo day 📸<br>3. This Week in AI<br><br>Want me to open any of these?', delay: 200 },
-      { type: 'pause', delay: 4000 },
-      { type: 'reset', delay: 0 },
-    ];
-
-    let thinkingEl = null, toolArea = null, currentBotMsg = null, bubbleEl = null;
-
-    function scrollDown() { chat.scrollTop = chat.scrollHeight; }
-
-    function typeText(el, text, cb) {
-      let i = 0;
-      el.textContent = '';
-      const cursor = document.createElement('span');
-      cursor.className = 'demo-cursor';
-      el.appendChild(cursor);
-      const iv = setInterval(() => {
-        if (i < text.length) { el.insertBefore(document.createTextNode(text[i]), cursor); i++; }
-        else { clearInterval(iv); if (cursor.parentNode) cursor.remove(); if (cb) cb(); }
-      }, 28);
-    }
-
-    function createBotMsg() {
-      const msg = document.createElement('div');
-      msg.className = 'demo-msg';
-      msg.innerHTML = '<div class="demo-avatar demo-avatar-bot">🤖</div><div class="demo-msg-body"><div class="demo-bubble demo-bubble-bot"></div></div>';
-      chat.appendChild(msg);
-      currentBotMsg = msg.querySelector('.demo-msg-body');
-      bubbleEl = msg.querySelector('.demo-bubble-bot');
-      toolArea = document.createElement('div');
-      bubbleEl.appendChild(toolArea);
-      scrollDown();
-      return currentBotMsg;
-    }
-
-    function runStep(idx) {
-      if (idx >= scenario.length) return;
-      const step = scenario[idx];
-      const next = () => setTimeout(() => runStep(idx + 1), scenario[idx + 1]?.delay || 0);
-
-      switch (step.type) {
-        case 'date-sep': {
-          const sep = document.createElement('div');
-          sep.className = 'demo-date-sep';
-          sep.innerHTML = '<span>' + step.text + '</span>';
-          chat.appendChild(sep);
-          scrollDown(); next(); break;
-        }
-        case 'input-type': typeText(input, step.text, next); break;
-        case 'input-send': input.textContent = ''; next(); break;
-        case 'user-msg': {
-          const msg = document.createElement('div');
-          msg.className = 'demo-msg demo-msg-user';
-          msg.innerHTML = '<div class="demo-avatar demo-avatar-user">👤</div><div class="demo-msg-body demo-msg-body-user"><div class="demo-bubble demo-bubble-user"><div class="demo-msg-text"></div></div></div>';
-          chat.appendChild(msg);
-          msg.querySelector('.demo-msg-text').textContent = step.text;
-          scrollDown(); next(); break;
-        }
-        case 'thinking': {
-          if (!currentBotMsg) createBotMsg();
-          thinkingEl = document.createElement('div');
-          thinkingEl.className = 'demo-thinking';
-          thinkingEl.innerHTML = 'Thinking <span class="demo-thinking-dots"><span></span><span></span><span></span></span>';
-          currentBotMsg.appendChild(thinkingEl);
-          scrollDown(); next(); break;
-        }
-        case 'tool-badge': {
-          if (!toolArea) createBotMsg();
-          const badge = document.createElement('span');
-          badge.className = 'demo-tool ' + step.cls;
-          badge.innerHTML = step.icon + ' ' + step.label;
-          toolArea.appendChild(badge);
-          scrollDown(); next(); break;
-        }
-        case 'tool-expand': {
-          const expand = document.createElement('div');
-          expand.className = 'demo-tool-expand';
-          expand.innerHTML = '<div class="demo-tool-expand-header">▶ ' + step.tool + '</div><div class="demo-tool-expand-body"><strong>Parameters:</strong>\n' + step.params + '\n\n<strong>Result:</strong>\n' + step.result + '</div>';
-          toolArea.appendChild(expand);
-          scrollDown(); next(); break;
-        }
-        case 'remove-thinking': if (thinkingEl) { thinkingEl.remove(); thinkingEl = null; } next(); break;
-        case 'assistant-msg': {
-          const d = document.createElement('div');
-          d.className = 'demo-msg-text';
-          d.innerHTML = step.html;
-          bubbleEl.appendChild(d);
-          scrollDown(); next(); break;
-        }
-        case 'pause': setTimeout(next, step.delay); break;
-        case 'reset':
-          setTimeout(() => {
-            chat.innerHTML = ''; input.textContent = '';
-            thinkingEl = null; toolArea = null; currentBotMsg = null; bubbleEl = null;
-            runStep(0);
-          }, 500);
-          break;
-      }
-    }
-
-    setTimeout(() => runStep(0), 1200);
   })();
   </script>
 </body>
