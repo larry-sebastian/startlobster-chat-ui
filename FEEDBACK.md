@@ -723,21 +723,24 @@
 ## Item #64
 - **Date:** 2026-02-14
 - **Priority:** high
-- **Status:** open
+- **Status:** done
+- **Completed:** 2026-02-14 — commit `143e948`, tagged `v1.46.0`
 - **Source:** Josh (Bardak)
 - **Description:** PWA not working — no install button appears on mobile or desktop. The app should be installable as a Progressive Web App. Check manifest.json, service worker registration, and install prompt handling. Test on both Chrome mobile and desktop.
 
 ## Item #65
 - **Date:** 2026-02-14
 - **Priority:** medium
-- **Status:** open
+- **Status:** done
+- **Completed:** 2026-02-14 — commit `143e948`, tagged `v1.46.0`
 - **Source:** Josh (Bardak)
 - **Description:** Replace the star icon (⭐) next to "PinchChat" and "Sessions" in the sidebar/navbar. It looks cheap. Replace with something better — PinchChat logo, lobster emoji (🦞), or whatever looks cool and fits the branding. Make it feel intentional, not placeholder.
 
 ## Item #66
 - **Date:** 2026-02-14
 - **Priority:** high
-- **Status:** open
+- **Status:** done
+- **Completed:** 2026-02-14 — commit `143e948`, tagged `v1.46.0`
 - **Source:** Josh (Bardak)
 - **Description:** Image display bug — when the assistant sends an image, it initially shows as an empty square container (wrong aspect ratio, no image visible). Clicking it opens the preview modal correctly and shows the image. After closing the preview, the image then renders correctly in the message bubble with the right aspect ratio. The image should render correctly on first load without requiring user interaction. Likely a lazy-loading or onload sizing issue.
 
@@ -748,7 +751,8 @@
 ## Item #68
 - **Date:** 2026-02-14
 - **Priority:** medium
-- **Status:** open
+- **Status:** done
+- **Completed:** 2026-02-14 — commit `143e948`, tagged `v1.46.0`
 - **Source:** Josh (Bardak)
 - **Description:** Colorize channel/source icons in the session list and chat — use each service's brand colors for visual identification. Discord = blurple (#5865F2), Telegram = blue (#26A5E4), Cron = amber/orange, TeamSpeak = blue (#2580C3), Signal = blue (#3A76F0), webchat = green, bardak-bot = custom, etc. Currently they're all the same color and hard to distinguish at a glance.
 
@@ -762,14 +766,16 @@
 ## Item #70
 - **Date:** 2026-02-14
 - **Priority:** medium
-- **Status:** open
+- **Status:** done
+- **Completed:** 2026-02-14 — commit `143e948`, tagged `v1.46.0`
 - **Source:** Josh (Bardak)
 - **Description:** WebSocket connection indicator uses primary/accent color — this is problematic because when the theme accent is red, the "connected" dot looks like an error/disconnected state. Use fixed semantic colors instead: green (#22c55e) for connected, red for disconnected, amber for reconnecting. Never tie connection status indicator to the theme accent color.
 
 ## Item #71
 - **Date:** 2026-02-14
 - **Priority:** low
-- **Status:** open
+- **Status:** done
+- **Completed:** 2026-02-14 — commit `143e948`, tagged `v1.46.0`
 - **Source:** Josh (Bardak)
 - **Description:** The three-dot menu (⋯) at the bottom of the sidebar next to the version number feels useless. Remove it or replace with something actually useful (e.g. settings shortcut, theme picker, link to GitHub repo, etc.).
 
