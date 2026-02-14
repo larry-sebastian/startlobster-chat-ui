@@ -151,6 +151,14 @@ const en = {
   'chat.bookmarks': 'Bookmarks',
   'chat.export': 'Export conversation',
   'chat.contextCompacted': 'Context compacted — older messages cached locally',
+  'slash.commands': 'Commands',
+  'slash.status': 'Show session status & usage',
+  'slash.reasoning': 'Toggle reasoning mode',
+  'slash.verbose': 'Toggle verbose output',
+  'slash.model': 'Switch model for this session',
+  'slash.compact': 'Compact conversation context',
+  'slash.reset': 'Reset the session',
+  'slash.help': 'Show available commands',
 } as const;
 
 const fr: Record<keyof typeof en, string> = {
@@ -281,6 +289,14 @@ const fr: Record<keyof typeof en, string> = {
   'chat.bookmarks': 'Marque-pages',
   'chat.export': 'Exporter la conversation',
   'chat.contextCompacted': 'Contexte compacté — anciens messages en cache local',
+  'slash.commands': 'Commandes',
+  'slash.status': 'Afficher le statut et l\'utilisation',
+  'slash.reasoning': 'Activer/désactiver le raisonnement',
+  'slash.verbose': 'Activer/désactiver le mode verbeux',
+  'slash.model': 'Changer de modèle pour cette session',
+  'slash.compact': 'Compacter le contexte',
+  'slash.reset': 'Réinitialiser la session',
+  'slash.help': 'Afficher les commandes disponibles',
 };
 
 export type TranslationKey = keyof typeof en;

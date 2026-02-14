@@ -2,6 +2,8 @@ import { useState, useRef, useEffect, useCallback, lazy, Suspense } from 'react'
 import { Send, Square, Paperclip, X, FileText, Eye, EyeOff } from 'lucide-react';
 import { useT } from '../hooks/useLocale';
 import { useSendShortcut } from '../hooks/useSendShortcut';
+import { SlashCommandMenu } from './SlashCommands';
+import { shouldShowSlashMenu } from '../lib/slashUtils';
 
 const ReactMarkdown = lazy(() => import('react-markdown'));
 const remarkGfm = import('remark-gfm').then(m => m.default);
@@ -93,6 +95,7 @@ export function ChatInput({ onSend, onAbort, isGenerating, disabled, sessionKey 
   const [files, setFiles] = useState<FileAttachment[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
   const [showPreview, setShowPreview] = useState(() => localStorage.getItem('pinchchat-md-preview') === '1');
+  const [showSlash, setShowSlash] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -176,6 +179,7 @@ export function ChatInput({ onSend, onAbort, isGenerating, disabled, sessionKey 
     onSend(trimmed || ' ', attachments);
     setText('');
     setFiles([]);
+    setShowSlash(false);
     // Clear draft for this session after sending
     if (sessionKey) draftsRef.current.delete(sessionKey);
   };
@@ -241,7 +245,13 @@ export function ChatInput({ onSend, onAbort, isGenerating, disabled, sessionKey 
       onDrop={handleDrop}
     >
       <div className="max-w-4xl mx-auto">
-        <div className={`rounded-3xl border bg-[var(--pc-bg-surface)]/40 p-3 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] transition-colors ${isDragOver ? 'border-[var(--pc-accent-dim)] bg-[var(--pc-accent-glow)]' : 'border-pc-border'}`}>
+        <div className={`relative rounded-3xl border bg-[var(--pc-bg-surface)]/40 p-3 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] transition-colors ${isDragOver ? 'border-[var(--pc-accent-dim)] bg-[var(--pc-accent-glow)]' : 'border-pc-border'}`}>
+          <SlashCommandMenu
+            query={text}
+            visible={showSlash}
+            onSelect={(cmd) => { setText(cmd); setShowSlash(shouldShowSlashMenu(cmd)); textareaRef.current?.focus(); }}
+            onClose={() => setShowSlash(false)}
+          />
           {/* File previews */}
           {files.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-3 px-1">
@@ -309,7 +319,7 @@ export function ChatInput({ onSend, onAbort, isGenerating, disabled, sessionKey 
               id="chat-input"
               ref={textareaRef}
               value={text}
-              onChange={(e) => setText(e.target.value)}
+              onChange={(e) => { setText(e.target.value); setShowSlash(shouldShowSlashMenu(e.target.value)); }}
               onKeyDown={handleKeyDown}
               onPaste={handlePaste}
               placeholder={t('chat.inputPlaceholder')}

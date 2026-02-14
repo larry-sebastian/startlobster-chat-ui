@@ -717,7 +717,8 @@
 ## Item #63
 - **Date:** 2026-02-13
 - **Priority:** medium
-- **Status:** open
+- **Status:** done
+- **Completed:** 2026-02-14 — commit `bd5ff6b`, tagged `v1.49.0`
 - **Description:** Context compaction button — Add a button in the PinchChat UI to trigger OpenClaw's context summarize/compaction. When a session's token usage is high (e.g. near the limit), the user can click to compact the conversation history, summarizing older messages to free up context window space. OpenClaw should expose an API/tool for this. (Feedback from Bardak)
 
 ## Item #64
