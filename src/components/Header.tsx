@@ -1,9 +1,8 @@
 import { useCallback, useState, useRef, useEffect } from 'react';
-import { Menu, Sparkles, LogOut, Volume2, VolumeOff, Cpu, Bot, Download, Minimize2, Info, Copy, Check } from 'lucide-react';
+import { Menu, Sparkles, LogOut, Cpu, Bot, Download, Minimize2, Info, Copy, Check, Settings } from 'lucide-react';
 import type { ConnectionStatus, Session, ChatMessage } from '../types';
 import { useT } from '../hooks/useLocale';
-import { LanguageSelector } from './LanguageSelector';
-import { ThemeSwitcher } from './ThemeSwitcher';
+import { SettingsModal } from './SettingsModal';
 import { sessionDisplayName } from '../lib/sessionName';
 import { messagesToMarkdown, downloadFile } from '../lib/exportChat';
 
@@ -25,6 +24,7 @@ export function Header({ status, sessionKey, onToggleSidebar, activeSessionData,
   const t = useT();
   const sessionLabel = activeSessionData ? sessionDisplayName(activeSessionData) : (sessionKey.split(':').pop() || sessionKey);
   const [showSessionInfo, setShowSessionInfo] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const sessionInfoRef = useRef<HTMLDivElement>(null);
 
   // Close popover on outside click
@@ -77,16 +77,6 @@ export function Header({ status, sessionKey, onToggleSidebar, activeSessionData,
         )}
       </div>
       <div className="flex items-center gap-2 text-sm">
-        {onToggleSound && (
-          <button
-            onClick={onToggleSound}
-            aria-label={soundEnabled ? t('header.soundOff') : t('header.soundOn')}
-            className="hidden sm:block p-2 rounded-2xl hover:bg-[var(--pc-hover)] text-pc-text-muted hover:text-pc-text transition-colors"
-            title={soundEnabled ? t('header.soundOff') : t('header.soundOn')}
-          >
-            {soundEnabled ? <Volume2 size={16} /> : <VolumeOff size={16} />}
-          </button>
-        )}
         {messages && messages.length > 0 && (
           <button
             onClick={handleExport}
@@ -97,8 +87,14 @@ export function Header({ status, sessionKey, onToggleSidebar, activeSessionData,
             <Download size={16} />
           </button>
         )}
-        <span className="hidden sm:contents"><ThemeSwitcher /></span>
-        <span className="hidden sm:contents"><LanguageSelector /></span>
+        <button
+          onClick={() => setSettingsOpen(true)}
+          aria-label={t('settings.title')}
+          className="p-2 rounded-2xl hover:bg-[var(--pc-hover)] text-pc-text-muted hover:text-pc-text transition-colors"
+          title={t('settings.title')}
+        >
+          <Settings size={16} />
+        </button>
         {status === 'connected' ? (
           <div className="flex items-center gap-2 rounded-2xl border border-pc-border bg-pc-elevated/30 px-3 py-1.5">
             <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.4)]" />
@@ -154,6 +150,7 @@ export function Header({ status, sessionKey, onToggleSidebar, activeSessionData,
           </div>
         );
       })()}
+      <SettingsModal open={settingsOpen} onClose={() => setSettingsOpen(false)} soundEnabled={soundEnabled} onToggleSound={onToggleSound} />
     </>
   );
 }
