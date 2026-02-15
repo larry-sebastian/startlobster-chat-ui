@@ -67,15 +67,17 @@ export function CodeBlock(props: HTMLAttributes<HTMLPreElement>) {
   const hasEnoughLines = lines.length > LINE_THRESHOLD;
   const isCollapsible = lines.length > COLLAPSE_THRESHOLD;
 
-  const handleCopy = useCallback(() => {
-    if (typeof code === 'string') {
-      copyToClipboard(code).then((ok) => {
-        if (ok) {
-          setCopied(true);
-          setTimeout(() => setCopied(false), 2000);
-        }
-      });
-    }
+  const handleCopy = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const text = typeof code === 'string' ? code : '';
+    if (!text) return;
+    copyToClipboard(text).then((ok) => {
+      if (ok) {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
+    });
   }, [code]);
 
   const toggleLineNumbers = useCallback(() => {

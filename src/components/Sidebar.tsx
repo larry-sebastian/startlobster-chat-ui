@@ -543,6 +543,7 @@ export function Sidebar({ sessions, activeSession, onSwitch, onDelete, onSplit, 
                           onChange={(e) => setRenameValue(e.target.value)}
                           onBlur={commitRename}
                           onKeyDown={(e) => {
+                            e.stopPropagation();
                             if (e.key === 'Enter') { e.preventDefault(); commitRename(); }
                             if (e.key === 'Escape') { e.preventDefault(); cancelRename(); }
                           }}

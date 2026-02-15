@@ -153,7 +153,9 @@ function WrapToggle({ wrap, onToggle }: { wrap: boolean; onToggle: () => void })
 /** Small copy-to-clipboard button for tool call content blocks. */
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
-  const handleCopy = useCallback(() => {
+  const handleCopy = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
     copyToClipboard(text).then((ok) => {
       if (ok) {
         setCopied(true);

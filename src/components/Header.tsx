@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef, useEffect } from 'react';
+import { useCallback, useState, useRef, useEffect, forwardRef } from 'react';
 import { Menu, Sparkles, LogOut, Cpu, Bot, Download, Minimize2, Info, Copy, Check, Settings } from 'lucide-react';
 import type { ConnectionStatus, Session, ChatMessage } from '../types';
 import { useT } from '../hooks/useLocale';
@@ -28,11 +28,17 @@ export function Header({ status, sessionKey, onToggleSidebar, activeSessionData,
   const [settingsOpen, setSettingsOpen] = useState(false);
   const sessionInfoRef = useRef<HTMLDivElement>(null);
 
-  // Close popover on outside click
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  // Close popover on outside click — check both the trigger area AND the popover itself
   useEffect(() => {
     if (!showSessionInfo) return;
     const handler = (e: MouseEvent) => {
-      if (sessionInfoRef.current && !sessionInfoRef.current.contains(e.target as Node)) {
+      const target = e.target as Node;
+      if (
+        sessionInfoRef.current && !sessionInfoRef.current.contains(target) &&
+        popoverRef.current && !popoverRef.current.contains(target)
+      ) {
         setShowSessionInfo(false);
       }
     };
@@ -74,7 +80,7 @@ export function Header({ status, sessionKey, onToggleSidebar, activeSessionData,
           </span>
         </button>
         {showSessionInfo && activeSessionData && (
-          <SessionInfoPopover session={activeSessionData} sessionKey={sessionKey} messageCount={messages?.length ?? 0} onClose={() => setShowSessionInfo(false)} />
+          <SessionInfoPopover ref={popoverRef} session={activeSessionData} sessionKey={sessionKey} messageCount={messages?.length ?? 0} onClose={() => setShowSessionInfo(false)} />
         )}
       </div>
       <div className="flex items-center gap-2 text-sm">
@@ -169,7 +175,7 @@ function CopyField({ value }: { value: string }) {
   );
 }
 
-function SessionInfoPopover({ session, sessionKey, messageCount, onClose }: { session: Session; sessionKey: string; messageCount: number; onClose: () => void }) {
+const SessionInfoPopover = forwardRef<HTMLDivElement, { session: Session; sessionKey: string; messageCount: number; onClose: () => void }>(function SessionInfoPopover({ session, sessionKey, messageCount, onClose }, ref) {
   const t = useT();
   const rows: Array<{ label: string; value: string; copyable?: boolean }> = [
     { label: t('sessionInfo.sessionKey'), value: sessionKey, copyable: true },
@@ -191,6 +197,7 @@ function SessionInfoPopover({ session, sessionKey, messageCount, onClose }: { se
 
   return (
     <div
+      ref={ref}
       className="absolute top-full left-0 mt-2 z-50 w-72 rounded-xl border border-pc-border bg-[var(--pc-bg-surface)] shadow-xl backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200"
       role="dialog"
       aria-label={t('header.sessionInfo')}
@@ -212,7 +219,7 @@ function SessionInfoPopover({ session, sessionKey, messageCount, onClose }: { se
       </div>
     </div>
   );
-}
+});
 
 function CompactButton({ sessionKey, onCompact }: { sessionKey: string; onCompact: (key: string) => Promise<boolean> }) {
   const [compacting, setCompacting] = useState(false);
