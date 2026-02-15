@@ -466,7 +466,9 @@ export function Sidebar({ sessions, activeSession, onSwitch, onDelete, onSplit, 
                       <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-violet-400 shadow-[0_0_8px_rgba(168,85,247,0.7)] animate-pulse" />
                     )}
                     {s.hasUnread && !isActive && (
-                      <span className="absolute -top-0.5 -left-0.5 h-2 w-2 rounded-full bg-[var(--pc-accent)] shadow-[0_0_8px_rgba(34,211,238,0.7)]" />
+                      <span className="absolute -top-1.5 -left-1.5 min-w-[16px] h-4 flex items-center justify-center rounded-full bg-[var(--pc-accent)] text-[9px] font-bold text-zinc-900 leading-none px-1 shadow-[0_0_8px_rgba(34,211,238,0.5)]">
+                        {(s.unreadCount || 1) > 99 ? '99+' : (s.unreadCount || 1)}
+                      </span>
                     )}
                   </div>
                   <div className="flex-1 min-w-0">

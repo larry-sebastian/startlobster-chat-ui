@@ -33,6 +33,7 @@ export interface Session {
   messageCount?: number;
   isActive?: boolean;
   hasUnread?: boolean;
+  unreadCount?: number;
   totalTokens?: number;
   contextTokens?: number;
   inputTokens?: number;

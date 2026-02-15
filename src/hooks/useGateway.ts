@@ -53,7 +53,7 @@ export function useGateway() {
   useEffect(() => { activeSessionRef.current = activeSession; }, [activeSession]);
   const currentRunIdRef = useRef<string | null>(null);
   const [activeSessions, setActiveSessions] = useState<Set<string>>(new Set());
-  const [unreadSessions, setUnreadSessions] = useState<Set<string>>(new Set());
+  const [unreadSessions, setUnreadSessions] = useState<Map<string, number>>(new Map());
   const [agentIdentity, setAgentIdentity] = useState<AgentIdentity | null>(null);
   /** Map of runId → generation duration (ms), preserved across loadHistory reloads */
   const generationTimesRef = useRef<Map<string, number>>(new Map());
@@ -337,9 +337,8 @@ export function useGateway() {
         // Mark non-active sessions as unread when they receive a final message
         if (state === 'final' && evtSession) {
           setUnreadSessions(prev => {
-            if (prev.has(evtSession)) return prev;
-            const next = new Set(prev);
-            next.add(evtSession);
+            const next = new Map(prev);
+            next.set(evtSession, (prev.get(evtSession) || 0) + 1);
             return next;
           });
         }
@@ -483,7 +482,7 @@ export function useGateway() {
     setMessages([]);
     setUnreadSessions(prev => {
       if (!prev.has(key)) return prev;
-      const next = new Set(prev);
+      const next = new Map(prev);
       next.delete(key);
       return next;
     });
@@ -538,6 +537,7 @@ export function useGateway() {
     ...s,
     isActive: activeSessions.has(s.key),
     hasUnread: unreadSessions.has(s.key),
+    unreadCount: unreadSessions.get(s.key) || 0,
   }));
 
   const getClient = useCallback(() => clientRef.current, []);
