@@ -106,7 +106,7 @@ export class GatewayClient {
       maxProtocol: 3,
       client: { id: 'webchat', version: __APP_VERSION__, platform: 'web', mode: 'webchat' },
       role: 'operator',
-      scopes: ['operator.read', 'operator.write'],
+      scopes: ['operator.read', 'operator.write', 'operator.admin'],
       caps: [],
       commands: [],
       permissions: {},

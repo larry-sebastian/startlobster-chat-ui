@@ -193,6 +193,8 @@ function SessionInfoPopover({ session, sessionKey, messageCount, onClose }: { se
       className="absolute top-full left-0 mt-2 z-50 w-72 rounded-xl border border-pc-border bg-[var(--pc-bg-surface)] shadow-xl backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200"
       role="dialog"
       aria-label={t('header.sessionInfo')}
+      onClick={(e) => e.stopPropagation()}
+      onMouseDown={(e) => e.stopPropagation()}
     >
       <div className="p-3 border-b border-pc-border flex items-center justify-between">
         <span className="text-xs font-semibold text-pc-text">{t('header.sessionInfo')}</span>

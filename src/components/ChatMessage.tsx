@@ -501,7 +501,7 @@ export const ChatMessageComponent = memo(function ChatMessageComponent({ message
 
       {/* Bubble */}
       <div className={`min-w-0 max-w-[80%] ${isUser ? 'text-right' : ''}`}>
-        <div className={`group relative inline-block text-left rounded-3xl px-4 py-3 text-sm leading-relaxed max-w-full overflow-hidden ${
+        <div className={`group relative inline-block text-left rounded-3xl px-4 py-3 text-sm leading-relaxed max-w-full min-w-[8rem] overflow-hidden ${
           isUser
             ? (isLight
                 ? 'bg-[rgba(var(--pc-accent-rgb),0.12)] text-pc-text border border-[rgba(var(--pc-accent-rgb),0.3)]'
@@ -509,7 +509,7 @@ export const ChatMessageComponent = memo(function ChatMessageComponent({ message
             : 'bg-pc-elevated/40 text-pc-text border border-pc-border shadow-[0_0_0_1px_rgba(255,255,255,0.03)]'
         }`}>
           {/* Action buttons — bottom-right toolbar, inside the bubble */}
-          <div className={`flex gap-1 justify-end mt-1.5 -mb-1 opacity-0 group-hover:opacity-100 transition-all`}>
+          <div className={`flex flex-nowrap gap-0.5 justify-end mt-1.5 -mb-1 opacity-0 group-hover:opacity-100 transition-all`}>
             {!isUser && !message.isStreaming && getPlainText(message).trim() && (
               <button
                 onClick={() => { navigator.clipboard.writeText(getPlainText(message)); }}
