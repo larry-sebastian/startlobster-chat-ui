@@ -166,9 +166,10 @@ interface Props {
   splitSession?: string | null;
   open: boolean;
   onClose: () => void;
+  onRename?: (key: string, label: string) => Promise<boolean>;
 }
 
-export function Sidebar({ sessions, activeSession, onSwitch, onDelete, onSplit, splitSession, open, onClose }: Props) {
+export function Sidebar({ sessions, activeSession, onSwitch, onDelete, onSplit, splitSession, open, onClose, onRename }: Props) {
   const t = useT();
   const [filter, setFilter] = useState('');
   const [focusIdx, setFocusIdx] = useState(-1);
@@ -259,9 +260,13 @@ export function Sidebar({ sessions, activeSession, onSwitch, onDelete, onSplit, 
       saveCustomNames(next);
       return next;
     });
+    // Also persist server-side via sessions.patch
+    if (onRename && trimmed) {
+      onRename(renamingKey, trimmed).catch(() => { /* best effort */ });
+    }
     setRenamingKey(null);
     setRenameValue('');
-  }, [renamingKey, renameValue]);
+  }, [renamingKey, renameValue, onRename]);
 
   const cancelRename = useCallback(() => {
     setRenamingKey(null);

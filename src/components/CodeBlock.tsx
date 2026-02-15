@@ -1,5 +1,6 @@
 import { useState, useCallback, type HTMLAttributes, type ReactElement } from 'react';
 import { Check, Copy, Hash, WrapText, AlignLeft, ChevronDown, ChevronUp } from 'lucide-react';
+import { copyToClipboard } from '../lib/clipboard';
 
 /** Extract the language from the nested <code> element's className (e.g. "language-ts"). */
 function extractLanguage(children: React.ReactNode): string | null {
@@ -68,9 +69,11 @@ export function CodeBlock(props: HTMLAttributes<HTMLPreElement>) {
 
   const handleCopy = useCallback(() => {
     if (typeof code === 'string') {
-      navigator.clipboard.writeText(code).then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+      copyToClipboard(code).then((ok) => {
+        if (ok) {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        }
       });
     }
   }, [code]);

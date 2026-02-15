@@ -59,6 +59,17 @@ export default function App() {
     }
   }, [getClient, switchSession]);
 
+  const handleRename = useCallback(async (key: string, label: string): Promise<boolean> => {
+    const client = getClient();
+    if (!client) return false;
+    try {
+      await client.send('sessions.patch', { key, label });
+      return true;
+    } catch {
+      return false;
+    }
+  }, [getClient]);
+
   // Split pane drag
   useEffect(() => {
     if (!splitDragging) return;
@@ -165,6 +176,7 @@ export default function App() {
         splitSession={splitSession}
         open={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
+        onRename={handleRename}
       />
       <div ref={splitContainerRef} className="flex-1 flex min-w-0" aria-hidden={sidebarOpen ? true : undefined}>
         {/* Primary pane */}

@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { ChevronRight, ChevronDown, Check, Copy, WrapText, AlignLeft } from 'lucide-react';
 import hljs from '../lib/highlight';
+import { copyToClipboard } from '../lib/clipboard';
 import { useT } from '../hooks/useLocale';
 import { useTheme } from '../hooks/useTheme';
 import { ImageBlock } from './ImageBlock';
@@ -153,9 +154,11 @@ function WrapToggle({ wrap, onToggle }: { wrap: boolean; onToggle: () => void })
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
   const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(text).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+    copyToClipboard(text).then((ok) => {
+      if (ok) {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
     });
   }, [text]);
 

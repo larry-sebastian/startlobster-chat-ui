@@ -3,6 +3,7 @@ import { Menu, Sparkles, LogOut, Cpu, Bot, Download, Minimize2, Info, Copy, Chec
 import type { ConnectionStatus, Session, ChatMessage } from '../types';
 import { useT } from '../hooks/useLocale';
 import { SettingsModal } from './SettingsModal';
+import { copyToClipboard } from '../lib/clipboard';
 import { sessionDisplayName } from '../lib/sessionName';
 import { messagesToMarkdown, downloadFile } from '../lib/exportChat';
 
@@ -160,7 +161,7 @@ function CopyField({ value }: { value: string }) {
   return (
     <button
       className="ml-auto p-0.5 rounded hover:bg-[var(--pc-hover)] text-pc-text-faint hover:text-pc-text-secondary transition-colors"
-      onClick={() => { navigator.clipboard.writeText(value).then(() => { setCopied(true); setTimeout(() => setCopied(false), 1500); }); }}
+      onClick={() => { copyToClipboard(value).then((ok) => { if (ok) { setCopied(true); setTimeout(() => setCopied(false), 1500); } }); }}
       title="Copy"
     >
       {copied ? <Check size={11} className="text-emerald-400" /> : <Copy size={11} />}

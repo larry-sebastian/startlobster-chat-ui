@@ -802,3 +802,28 @@
 - **Status:** done
 - **Completed:** 2026-02-15 — commit `e1ba4aa`, tagged `v1.57.1`
 - **Description:** Session deletion doesn't persist — when deleting a session from the sidebar, it disappears visually but comes back on page reload. The deletion is only client-side/cosmetic and doesn't actually delete the session from the OpenClaw backend. Need to call the proper API endpoint to actually delete/archive the session server-side. (Feedback from Bardak)
+
+## Item #75
+- **Date:** 2026-02-15
+- **Priority:** high
+- **Status:** open
+- **Description:** Session info tooltip not clickable — clicking inside the tooltip (e.g. to copy sessionKey) closes it immediately. The click event bubbles up to the parent button that toggles the tooltip. Need stopPropagation on the tooltip container. (Note: fix attempted in v1.63.3 but marlbot-chat had stale files)
+
+## Item #76
+- **Date:** 2026-02-15
+- **Priority:** high
+- **Status:** open
+- **Description:** Code/payload copy button doesn't work — clicking the copy button on code blocks and tool call payloads does nothing. Investigate clipboard API calls in CodeBlock and ToolCall components.
+
+## Item #78
+- **Date:** 2026-02-15
+- **Priority:** medium
+- **Status:** open
+- **Source:** Josh (Bardak)
+- **Description:** Session renaming — allow users to rename sessions from the sidebar. OpenClaw supports `sessions.patch` with a `label` field. Add a rename action (double-click, right-click menu, or edit icon) on session names in the sidebar. Requires `operator.admin` scope (already added in v1.63.3).
+
+## Item #77
+- **Date:** 2026-02-15
+- **Priority:** high
+- **Status:** open
+- **Description:** Compact button doesn't work — need to verify the correct OpenClaw API for triggering compaction. Current implementation sends `sessions.compact` which requires `operator.admin` scope (added in v1.63.3). If it still doesn't work, check OpenClaw docs for the correct method name and parameters. May need to use `/compact` slash command equivalent via WS.

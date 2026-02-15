@@ -10,6 +10,7 @@ import { CodeBlock } from './CodeBlock';
 import { ToolCall } from './ToolCall';
 import { ImageBlock } from './ImageBlock';
 import { buildImageSrc } from '../lib/image';
+import { copyToClipboard } from '../lib/clipboard';
 import { Bot, User, Wrench, Copy, Check, CheckCheck, RefreshCw, Zap, Info, Webhook, Braces, Clock, AlertCircle, Bookmark, ChevronDown, Reply } from 'lucide-react';
 import { t, getLocale } from '../lib/i18n';
 import { useLocale } from '../hooks/useLocale';
@@ -379,9 +380,11 @@ function RawJsonPanel({ message }: { message: ChatMessageType }) {
   const [copied, setCopied] = useState(false);
   const json = JSON.stringify(message, null, 2);
   const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(json).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+    copyToClipboard(json).then((ok) => {
+      if (ok) {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
     });
   }, [json]);
 
@@ -557,7 +560,7 @@ export const ChatMessageComponent = memo(function ChatMessageComponent({ message
           <div className={`flex flex-nowrap gap-0.5 justify-end mt-1.5 -mb-1 opacity-0 group-hover:opacity-100 transition-all`}>
             {!isUser && !message.isStreaming && getPlainText(message).trim() && (
               <button
-                onClick={() => { navigator.clipboard.writeText(getPlainText(message)); }}
+                onClick={() => { copyToClipboard(getPlainText(message)); }}
                 className="h-6 w-6 rounded-md flex items-center justify-center text-pc-text-faint hover:text-pc-accent-light transition-colors"
                 title={t('message.copy')}
                 aria-label={t('message.copy')}
