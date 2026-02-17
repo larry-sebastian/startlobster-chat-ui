@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-const STORAGE_KEY = 'pinchchat-send-on-enter';
+const STORAGE_KEY = 'startlobster-send-on-enter';
 
 /** Hook to manage the send shortcut preference (Enter vs Ctrl+Enter). */
 export function useSendShortcut() {

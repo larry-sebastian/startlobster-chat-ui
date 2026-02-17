@@ -2,9 +2,9 @@ import { genId } from './utils';
 import type { DeviceIdentity } from './deviceIdentity';
 import { buildDeviceAuthPayload, signPayload } from './deviceIdentity';
 
-/** Debug logger — enable with localStorage.setItem('pinchchat:debug', '1') */
+/** Debug logger — enable with localStorage.setItem('startlobster:debug', '1') */
 const isDebug = () => {
-  try { return localStorage.getItem('pinchchat:debug') === '1'; } catch { return false; }
+  try { return localStorage.getItem('startlobster:debug') === '1'; } catch { return false; }
 };
 const log = (...args: unknown[]) => { if (isDebug()) console.log('[GW]', ...args); };
 
@@ -157,7 +157,7 @@ export class GatewayClient {
         auth: { token: this.authToken },
         device,
         locale: (typeof navigator !== 'undefined' ? navigator.language : undefined) || 'en',
-        userAgent: `pinchchat/${__APP_VERSION__}`,
+        userAgent: `startlobster/${__APP_VERSION__}`,
       });
       log('connected!', res);
       this.connected = true;

@@ -3,7 +3,7 @@ import { ThemeContext, type ThemeName, type AccentColor } from './ThemeContextDe
 
 export type { ThemeName, AccentColor } from './ThemeContextDef';
 
-const STORAGE_KEY = 'pinchchat-theme';
+const STORAGE_KEY = 'startlobster-theme';
 
 interface StoredTheme {
   theme: ThemeName;

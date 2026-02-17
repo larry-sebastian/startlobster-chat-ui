@@ -1,17 +1,17 @@
 {
-  "name": "pinchchat",
+  "name": "startlobster-chat-ui",
   "version": "1.65.0",
   "description": "A sleek, dark-themed webchat UI for OpenClaw — monitor sessions, stream responses, and inspect tool calls in real-time.",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MarlBurroW/pinchchat.git"
+    "url": "https://github.com/larry-sebastian/startlobster-chat-ui.git"
   },
   "license": "MIT",
   "author": "Nicolas Varrot",
-  "homepage": "https://marlburrow.github.io/pinchchat/",
+  "homepage": "https://startlobster.de",
   "bugs": {
-    "url": "https://github.com/MarlBurroW/pinchchat/issues"
+    "url": "https://github.com/larry-sebastian/startlobster-chat-ui/issues"
   },
   "keywords": [
     "openclaw",

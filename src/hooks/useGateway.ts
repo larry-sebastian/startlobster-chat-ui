@@ -98,7 +98,7 @@ export function useGateway() {
   // Deleted sessions blacklist (persisted in localStorage)
   const getDeletedSessions = useCallback((): Set<string> => {
     try {
-      const raw = localStorage.getItem('pinchchat-deleted-sessions');
+      const raw = localStorage.getItem('startlobster-deleted-sessions');
       return raw ? new Set(JSON.parse(raw)) : new Set();
     } catch { return new Set(); }
   }, []);
@@ -106,7 +106,7 @@ export function useGateway() {
   const addDeletedSession = useCallback((key: string) => {
     const deleted = getDeletedSessions();
     deleted.add(key);
-    localStorage.setItem('pinchchat-deleted-sessions', JSON.stringify([...deleted]));
+    localStorage.setItem('startlobster-deleted-sessions', JSON.stringify([...deleted]));
   }, [getDeletedSessions]);
 
   const loadAgentIdentity = useCallback(async () => {
@@ -136,7 +136,7 @@ export function useGateway() {
         const activeKeys = new Set(sessionList.map((s) => (s.key || s.sessionKey) as string));
         const reconciled = new Set([...deleted].filter((k) => activeKeys.has(k)));
         if (reconciled.size !== deleted.size) {
-          localStorage.setItem('pinchchat-deleted-sessions', JSON.stringify([...reconciled]));
+          localStorage.setItem('startlobster-deleted-sessions', JSON.stringify([...reconciled]));
         }
         setSessions(sessionList.filter((s) => !deleted.has((s.key || s.sessionKey) as string)).map((s) => ({
           key: (s.key || s.sessionKey) as string,
@@ -286,7 +286,7 @@ export function useGateway() {
       const identity = await getOrCreateDeviceIdentity();
       client.setDeviceIdentity(identity);
     } catch (err) {
-      console.warn('[PinchChat] Failed to load device identity, connecting without it:', err);
+      console.warn('[StartLobster Chat] Failed to load device identity, connecting without it:', err);
     }
 
     client.onStatus((s) => {

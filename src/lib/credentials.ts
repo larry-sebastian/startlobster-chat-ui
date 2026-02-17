@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'pinchchat_credentials';
+const STORAGE_KEY = 'startlobster_credentials';
 
 export function getStoredCredentials(): { url: string; token: string } | null {
   try {

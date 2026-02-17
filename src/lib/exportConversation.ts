@@ -7,7 +7,7 @@ export function exportAsMarkdown(messages: ChatMessage[], sessionLabel?: string)
   const lines: string[] = [];
   const title = sessionLabel || 'Conversation';
   lines.push(`# ${title}`);
-  lines.push(`> Exported from PinchChat on ${new Date().toLocaleString()}`);
+  lines.push(`> Exported from StartLobster Chat on ${new Date().toLocaleString()}`);
   lines.push('');
 
   for (const msg of messages) {

@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-const STORAGE_KEY = 'pinchchat-bookmarks';
+const STORAGE_KEY = 'startlobster-bookmarks';
 
 export interface Bookmark {
   messageId: string;

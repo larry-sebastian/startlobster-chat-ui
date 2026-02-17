@@ -34,11 +34,11 @@
   --pc-scrollbar-thumb: #52525b;
   --pc-scrollbar-track: #27272a;
   --pc-scrollbar-thumb-hover: #71717a;
-  --pc-accent: #22d3ee;
-  --pc-accent-light: #67e8f9;
-  --pc-accent-dim: rgba(34,211,238,0.3);
-  --pc-accent-glow: rgba(34,211,238,0.1);
-  --pc-accent-rgb: 34,211,238;
+  --pc-accent: #E84855;
+  --pc-accent-light: #FF6B75;
+  --pc-accent-dim: rgba(232,72,85,0.3);
+  --pc-accent-glow: rgba(232,72,85,0.1);
+  --pc-accent-rgb: 232,72,85;
   --pc-hover: rgba(255,255,255,0.05);
   --pc-hover-strong: rgba(255,255,255,0.08);
   --pc-separator: rgba(255,255,255,0.05);

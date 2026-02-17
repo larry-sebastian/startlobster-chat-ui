@@ -1,8 +1,8 @@
 {
   "id": "/",
-  "name": "PinchChat",
-  "short_name": "PinchChat",
-  "description": "A sleek, dark-themed webchat UI for OpenClaw — monitor sessions, stream responses, and inspect tool calls in real-time.",
+  "name": "StartLobster Chat",
+  "short_name": "StartLobster Chat",
+  "description": "StartLobster Chat — Dein AI-Assistent",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

@@ -5,7 +5,7 @@
  * and provides signing utilities for the gateway connect handshake.
  */
 
-const DB_NAME = 'pinchchat_device';
+const DB_NAME = 'startlobster_device';
 const DB_VERSION = 1;
 const STORE_NAME = 'identity';
 const IDENTITY_KEY = 'device';

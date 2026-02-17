@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
-const GITHUB_API = 'https://api.github.com/repos/MarlBurroW/pinchchat/releases/latest';
+const GITHUB_API = 'https://api.github.com/repos/larry-sebastian/startlobster-chat-ui/releases/latest';
 const CHECK_INTERVAL = 60 * 60 * 1000; // 1 hour
-const CACHE_KEY = 'pinchchat-latest-version';
+const CACHE_KEY = 'startlobster-latest-version';
 
 interface UpdateInfo {
   available: boolean;

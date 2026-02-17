@@ -28,7 +28,7 @@ function VersionBadge() {
     );
   }
   return (
-    <span className="ml-1 text-[9px] text-pc-text-faint select-all" title={`PinchChat v${__APP_VERSION__}`}>v{__APP_VERSION__}</span>
+    <span className="ml-1 text-[9px] text-pc-text-faint select-all" title={`StartLobster Chat v${__APP_VERSION__}`}>v{__APP_VERSION__}</span>
   );
 }
 
@@ -47,7 +47,7 @@ function SidebarFooter() {
         </button>
       )}
       <a
-        href="https://github.com/MarlBurroW/pinchchat"
+        href="https://github.com/larry-sebastian/startlobster-chat-ui"
         target="_blank"
         rel="noopener noreferrer"
         className="text-pc-text-faint hover:text-pc-text-secondary transition-colors"
@@ -60,11 +60,11 @@ function SidebarFooter() {
   );
 }
 
-const PINNED_KEY = 'pinchchat-pinned-sessions';
-const WIDTH_KEY = 'pinchchat-sidebar-width';
-const ORDER_KEY = 'pinchchat-session-order';
-const FILTER_KEY = 'pinchchat-session-filter';
-const NAMES_KEY = 'pinchchat-session-names';
+const PINNED_KEY = 'startlobster-pinned-sessions';
+const WIDTH_KEY = 'startlobster-sidebar-width';
+const ORDER_KEY = 'startlobster-session-order';
+const FILTER_KEY = 'startlobster-session-filter';
+const NAMES_KEY = 'startlobster-session-names';
 
 function getCustomNames(): Record<string, string> {
   try {
@@ -350,7 +350,7 @@ export function Sidebar({ sessions, activeSession, onSwitch, onDelete, onSplit, 
             <div className="relative">
               <div className="absolute -inset-1.5 rounded-xl bg-gradient-to-r from-cyan-400/15 to-violet-500/15 blur-lg" />
               <div className="relative flex h-8 w-8 items-center justify-center rounded-xl overflow-hidden">
-                <img src="/logo.png" alt="PinchChat" className="h-8 w-8 object-contain" />
+                <img src="/logo.png" alt="StartLobster Chat" className="h-8 w-8 object-contain" />
               </div>
             </div>
             <span className="font-semibold text-sm text-pc-text tracking-wide">{t('sidebar.title')}</span>

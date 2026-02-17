@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { playNotificationSound } from '../lib/notificationSound';
 
-const APP_NAME = 'PinchChat';
+const APP_NAME = 'StartLobster Chat';
 let baseTitle = APP_NAME;
 
 /** Update the base title (e.g. with active session name). Called by App. */
@@ -12,7 +12,7 @@ export function setBaseTitle(sessionLabel?: string) {
     document.title = baseTitle;
   }
 }
-const SOUND_KEY = 'pinchchat-notification-sound';
+const SOUND_KEY = 'startlobster-notification-sound';
 const hasNotificationAPI = typeof Notification !== 'undefined';
 
 /**
@@ -91,7 +91,7 @@ export function useNotifications() {
         const n = new Notification(title, {
           body: body?.slice(0, 200),
           icon: '/logo.png',
-          tag: 'pinchchat-message', // Collapse multiple into one
+          tag: 'startlobster-message', // Collapse multiple into one
           silent: soundEnabled, // Don't double-play system sound if we have our own
         });
         // Auto-close after 5s

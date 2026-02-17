@@ -1,16 +1,16 @@
 /**
  * Lightweight reactive i18n — no external deps.
  *
- * Locale priority: localStorage > VITE_LOCALE > navigator.language > 'en'
+ * Locale priority: localStorage > VITE_LOCALE > navigator.language > 'de'
  * Changing locale at runtime triggers subscribed React components to re-render.
  */
 
-const STORAGE_KEY = 'pinchchat-locale';
+const STORAGE_KEY = 'startlobster-locale';
 
 const en = {
   // Login screen
-  'login.title': 'PinchChat',
-  'login.subtitle': 'Connect to your OpenClaw gateway',
+  'login.title': 'StartLobster Chat',
+  'login.subtitle': 'Connect to your AI assistant',
   'login.gatewayUrl': 'Gateway URL',
   'login.token': 'Token',
   'login.tokenPlaceholder': 'Enter your gateway token',
@@ -22,7 +22,7 @@ const en = {
   'login.wsHint': 'URL must start with ws:// or wss://',
 
   // Header
-  'header.title': 'PinchChat',
+  'header.title': 'StartLobster',
   'header.connected': 'Connected',
   'header.disconnected': 'Disconnected',
   'header.logout': 'Logout',
@@ -32,7 +32,7 @@ const en = {
   'header.soundOff': 'Disable notification sound',
 
   // Chat
-  'chat.welcome': 'PinchChat',
+  'chat.welcome': 'StartLobster Chat',
   'chat.welcomeSub': 'Send a message to get started',
   'chat.suggestions': 'Try asking...',
   'chat.suggestion1': 'Summarize my recent emails',
@@ -186,7 +186,7 @@ const en = {
 } as const;
 
 const fr: Record<keyof typeof en, string> = {
-  'login.title': 'PinchChat',
+  'login.title': 'StartLobster Chat',
   'login.subtitle': 'Connectez-vous à votre gateway OpenClaw',
   'login.gatewayUrl': 'URL de la gateway',
   'login.token': 'Token',
@@ -198,7 +198,7 @@ const fr: Record<keyof typeof en, string> = {
   'login.storedLocally': 'Les identifiants sont stockés localement dans votre navigateur',
   'login.wsHint': 'L\'URL doit commencer par ws:// ou wss://',
 
-  'header.title': 'PinchChat',
+  'header.title': 'StartLobster',
   'header.connected': 'Connecté',
   'header.disconnected': 'Déconnecté',
   'header.logout': 'Déconnexion',
@@ -207,7 +207,7 @@ const fr: Record<keyof typeof en, string> = {
   'header.soundOn': 'Activer le son de notification',
   'header.soundOff': 'Désactiver le son de notification',
 
-  'chat.welcome': 'PinchChat',
+  'chat.welcome': 'StartLobster Chat',
   'chat.welcomeSub': 'Envoyez un message pour commencer',
   'chat.suggestions': 'Essayez par exemple...',
   'chat.suggestion1': 'Résume mes derniers emails',
@@ -348,7 +348,7 @@ const fr: Record<keyof typeof en, string> = {
 };
 
 const es: Record<keyof typeof en, string> = {
-  'login.title': 'PinchChat',
+  'login.title': 'StartLobster Chat',
   'login.subtitle': 'Conéctate a tu gateway OpenClaw',
   'login.gatewayUrl': 'URL del gateway',
   'login.token': 'Token',
@@ -360,7 +360,7 @@ const es: Record<keyof typeof en, string> = {
   'login.storedLocally': 'Las credenciales se guardan localmente en tu navegador',
   'login.wsHint': 'La URL debe empezar con ws:// o wss://',
 
-  'header.title': 'PinchChat',
+  'header.title': 'StartLobster',
   'header.connected': 'Conectado',
   'header.disconnected': 'Desconectado',
   'header.logout': 'Cerrar sesión',
@@ -369,7 +369,7 @@ const es: Record<keyof typeof en, string> = {
   'header.soundOn': 'Activar sonido de notificación',
   'header.soundOff': 'Desactivar sonido de notificación',
 
-  'chat.welcome': 'PinchChat',
+  'chat.welcome': 'StartLobster Chat',
   'chat.welcomeSub': 'Envía un mensaje para comenzar',
   'chat.suggestions': 'Prueba a preguntar...',
   'chat.suggestion1': 'Resume mis últimos correos',
@@ -512,7 +512,7 @@ const es: Record<keyof typeof en, string> = {
 export type TranslationKey = keyof typeof en;
 
 const de: Record<keyof typeof en, string> = {
-  'login.title': 'PinchChat',
+  'login.title': 'StartLobster Chat',
   'login.subtitle': 'Mit deinem OpenClaw-Gateway verbinden',
   'login.gatewayUrl': 'Gateway-URL',
   'login.token': 'Token',
@@ -524,7 +524,7 @@ const de: Record<keyof typeof en, string> = {
   'login.storedLocally': 'Zugangsdaten werden lokal in deinem Browser gespeichert',
   'login.wsHint': 'URL muss mit ws:// oder wss:// beginnen',
 
-  'header.title': 'PinchChat',
+  'header.title': 'StartLobster',
   'header.connected': 'Verbunden',
   'header.disconnected': 'Getrennt',
   'header.logout': 'Abmelden',
@@ -533,7 +533,7 @@ const de: Record<keyof typeof en, string> = {
   'header.soundOn': 'Benachrichtigungston aktivieren',
   'header.soundOff': 'Benachrichtigungston deaktivieren',
 
-  'chat.welcome': 'PinchChat',
+  'chat.welcome': 'StartLobster Chat',
   'chat.welcomeSub': 'Sende eine Nachricht, um zu beginnen',
   'chat.suggestions': 'Probiere z.\u00a0B. …',
   'chat.suggestion1': 'Fasse meine letzten E-Mails zusammen',
@@ -674,7 +674,7 @@ const de: Record<keyof typeof en, string> = {
 };
 
 const ja: Record<keyof typeof en, string> = {
-  'login.title': 'PinchChat',
+  'login.title': 'StartLobster Chat',
   'login.subtitle': 'OpenClawゲートウェイに接続',
   'login.gatewayUrl': 'ゲートウェイURL',
   'login.token': 'トークン',
@@ -686,7 +686,7 @@ const ja: Record<keyof typeof en, string> = {
   'login.storedLocally': '認証情報はブラウザにローカル保存されます',
   'login.wsHint': 'URLはws://またはwss://で始まる必要があります',
 
-  'header.title': 'PinchChat',
+  'header.title': 'StartLobster',
   'header.connected': '接続済み',
   'header.disconnected': '切断',
   'header.logout': 'ログアウト',
@@ -695,7 +695,7 @@ const ja: Record<keyof typeof en, string> = {
   'header.soundOn': '通知音を有効にする',
   'header.soundOff': '通知音を無効にする',
 
-  'chat.welcome': 'PinchChat',
+  'chat.welcome': 'StartLobster Chat',
   'chat.welcomeSub': 'メッセージを送信して始めましょう',
   'chat.suggestions': '例えば…',
   'chat.suggestion1': '最近のメールをまとめて',
@@ -836,7 +836,7 @@ const ja: Record<keyof typeof en, string> = {
 };
 
 const pt: Record<keyof typeof en, string> = {
-  'login.title': 'PinchChat',
+  'login.title': 'StartLobster Chat',
   'login.subtitle': 'Conectar ao seu gateway OpenClaw',
   'login.gatewayUrl': 'URL do Gateway',
   'login.token': 'Token',
@@ -848,7 +848,7 @@ const pt: Record<keyof typeof en, string> = {
   'login.storedLocally': 'As credenciais são armazenadas localmente no navegador',
   'login.wsHint': 'A URL deve começar com ws:// ou wss://',
 
-  'header.title': 'PinchChat',
+  'header.title': 'StartLobster',
   'header.connected': 'Conectado',
   'header.disconnected': 'Desconectado',
   'header.logout': 'Sair',
@@ -857,7 +857,7 @@ const pt: Record<keyof typeof en, string> = {
   'header.soundOn': 'Ativar som de notificação',
   'header.soundOff': 'Desativar som de notificação',
 
-  'chat.welcome': 'PinchChat',
+  'chat.welcome': 'StartLobster Chat',
   'chat.welcomeSub': 'Envie uma mensagem para começar',
   'chat.suggestions': 'Tente perguntar…',
   'chat.suggestion1': 'Resuma meus e-mails recentes',
@@ -998,7 +998,7 @@ const pt: Record<keyof typeof en, string> = {
 };
 
 const zh: Record<keyof typeof en, string> = {
-  'login.title': 'PinchChat',
+  'login.title': 'StartLobster Chat',
   'login.subtitle': '连接到您的 OpenClaw 网关',
   'login.gatewayUrl': '网关地址',
   'login.token': '令牌',
@@ -1010,7 +1010,7 @@ const zh: Record<keyof typeof en, string> = {
   'login.storedLocally': '凭据仅存储在浏览器本地',
   'login.wsHint': '地址必须以 ws:// 或 wss:// 开头',
 
-  'header.title': 'PinchChat',
+  'header.title': 'StartLobster',
   'header.connected': '已连接',
   'header.disconnected': '未连接',
   'header.logout': '退出',
@@ -1019,7 +1019,7 @@ const zh: Record<keyof typeof en, string> = {
   'header.soundOn': '开启通知音',
   'header.soundOff': '关闭通知音',
 
-  'chat.welcome': 'PinchChat',
+  'chat.welcome': 'StartLobster Chat',
   'chat.welcomeSub': '发送消息开始对话',
   'chat.suggestions': '试试问…',
   'chat.suggestion1': '总结我最近的邮件',
@@ -1160,7 +1160,7 @@ const zh: Record<keyof typeof en, string> = {
 };
 
 const it: Record<keyof typeof en, string> = {
-  'login.title': 'PinchChat',
+  'login.title': 'StartLobster Chat',
   'login.subtitle': 'Connettiti al tuo gateway OpenClaw',
   'login.gatewayUrl': 'URL del Gateway',
   'login.token': 'Token',
@@ -1172,7 +1172,7 @@ const it: Record<keyof typeof en, string> = {
   'login.storedLocally': 'Le credenziali vengono salvate localmente nel browser',
   'login.wsHint': 'L\'URL deve iniziare con ws:// o wss://',
 
-  'header.title': 'PinchChat',
+  'header.title': 'StartLobster',
   'header.connected': 'Connesso',
   'header.disconnected': 'Disconnesso',
   'header.logout': 'Esci',
@@ -1181,7 +1181,7 @@ const it: Record<keyof typeof en, string> = {
   'header.soundOn': 'Attiva suono notifiche',
   'header.soundOff': 'Disattiva suono notifiche',
 
-  'chat.welcome': 'PinchChat',
+  'chat.welcome': 'StartLobster Chat',
   'chat.welcomeSub': 'Invia un messaggio per iniziare',
   'chat.suggestions': 'Prova a chiedere…',
   'chat.suggestion1': 'Riassumi le mie ultime email',

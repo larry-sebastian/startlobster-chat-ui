@@ -6,7 +6,7 @@
 
 import type { ChatMessage } from '../types';
 
-const DB_NAME = 'pinchchat-messages';
+const DB_NAME = 'startlobster-messages';
 const DB_VERSION = 1;
 const STORE_NAME = 'messages';
 

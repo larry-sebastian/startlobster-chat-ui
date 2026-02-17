@@ -100,7 +100,7 @@ export function ChatInput({ onSend, onAbort, isGenerating, disabled, sessionKey,
   const [text, setText] = useState('');
   const [files, setFiles] = useState<FileAttachment[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
-  const [showPreview, setShowPreview] = useState(() => localStorage.getItem('pinchchat-md-preview') === '1');
+  const [showPreview, setShowPreview] = useState(() => localStorage.getItem('startlobster-md-preview') === '1');
   const [showSlash, setShowSlash] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -326,7 +326,7 @@ export function ChatInput({ onSend, onAbort, isGenerating, disabled, sessionKey,
             </button>
             {/* Markdown preview toggle — hidden on mobile */}
             <button
-              onClick={() => setShowPreview(v => { const next = !v; localStorage.setItem('pinchchat-md-preview', next ? '1' : '0'); return next; })}
+              onClick={() => setShowPreview(v => { const next = !v; localStorage.setItem('startlobster-md-preview', next ? '1' : '0'); return next; })}
               className={`hidden sm:flex shrink-0 h-11 w-11 rounded-2xl border border-pc-border bg-pc-elevated/30 items-center justify-center transition-colors ${showPreview ? 'text-pc-accent-light bg-[var(--pc-accent-glow)]' : 'text-pc-text-secondary hover:text-pc-accent-light hover:bg-[var(--pc-hover)]'}`}
               title={showPreview ? t('chat.hidePreview') : t('chat.showPreview')}
               aria-label={showPreview ? t('chat.hidePreview') : t('chat.showPreview')}

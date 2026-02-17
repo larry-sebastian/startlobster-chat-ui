@@ -43,8 +43,8 @@ function formatLanguage(lang: string): string {
  * Custom <pre> renderer for ReactMarkdown.
  * Wraps code blocks with a language label and a floating copy button.
  */
-const LINE_NUMBER_KEY = 'pinchchat-line-numbers';
-const WRAP_KEY = 'pinchchat-code-wrap';
+const LINE_NUMBER_KEY = 'startlobster-line-numbers';
+const WRAP_KEY = 'startlobster-code-wrap';
 const LINE_THRESHOLD = 3; // Only show line numbers for blocks with more than this many lines
 const COLLAPSE_THRESHOLD = 25; // Collapse code blocks longer than this
 const COLLAPSE_PREVIEW_LINES = 10; // Lines to show when collapsed
